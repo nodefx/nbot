@@ -1,10 +1,21 @@
 {
-  "scripts":{
-  	"start":"nohup node app.js > access.log 2> error.log & echo $! > save_pid.txt",
-  	"stop":"node disconnect.js"
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./app/start.js",
+    "stop": "node ./app/stop.js"
   },
   "dependencies": {
-    "bl": "^1.2.0",
+    "koa": "^2.2.0",
+    "nedb": "^1.8.0",
     "nodemailer": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "colors": "^1.1.2",
+    "cross-env": "^4.0.0",
+    "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1"
   }
 }
