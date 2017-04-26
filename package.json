@@ -1,6 +1,6 @@
 {
   "scripts":{
-  	"start":"nohup node app.js > logs/access.log 2> logs/error.log & echo $! > save_pid.txt",
+  	"start":"nohup node app.js > access.log 2> error.log & echo $! > save_pid.txt",
   	"stop":"node disconnect.js"
   },
   "dependencies": {
