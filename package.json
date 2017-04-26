@@ -1,0 +1,10 @@
+{
+  "scripts":{
+  	"start":"nohup node app.js > logs/access.log 2> logs/error.log & echo $! > save_pid.txt",
+  	"stop":"node disconnect.js"
+  },
+  "dependencies": {
+    "bl": "^1.2.0",
+    "nodemailer": "^4.0.1"
+  }
+}
