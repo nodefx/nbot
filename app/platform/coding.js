@@ -13,7 +13,6 @@ module.exports = async function (header = {}, get = {}, post = {}) {
       break
   }
 }
-
 async function gitpush(gitEvent) {
   if (!fs.existsSync(`${gitEvent.path}/deploy/push.js`)) return
   await db.model('push').insertAsync(gitEvent)
