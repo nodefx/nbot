@@ -3,11 +3,7 @@
  */
 const db = require('../database')
 module.exports = async function(header={},get={},post={}){
-  let gitEvent = {
-    ...header,
-    ...get,
-    ...post
-  }
+  let gitEvent = Object.assign({},header,get,post)
   if(gitEvent.event==='push'){
     await db.model('push').insertAsync(gitEvent)
   }
