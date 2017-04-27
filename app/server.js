@@ -14,7 +14,7 @@ app.use(async(ctx) => {
   //console.log(`ctx.req.headers`,JSON.stringify(ctx.req.headers))
   await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
   //let d = await db.model('push').findAsync({})
-  ctx.body ='v0.1.10'
+  ctx.body ='v0.2'
 })
 
 app.listen(config.http.port)
