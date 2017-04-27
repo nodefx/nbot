@@ -20,7 +20,7 @@ const cmd = function (command) {
 }
 
 async function queue() {
-  await cmd(`sh ${__dirname}/pull.sh`)
+  await cmd('git pull')
   await cmd('yarn reload')
 }
 queue()
