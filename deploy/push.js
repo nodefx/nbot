@@ -3,8 +3,7 @@
  */
 const {exec} = require('child_process')
 let gitEvent = process.argv[2]
-console.log('gitEvent',process)
-//gitEvent = JSON.parse(gitEvent)
+console.log('process',process)
 const cmd = function (command) {
   return new Promise((resolve, reject) => {
     exec(command, function (e, o, oe) {
@@ -25,5 +24,4 @@ async function queue() {
   await cmd('git pull')
   await cmd('yarn reload')
 }
-//if(gitEvent.ref!=='refs/heads/master') queue()
-//else console.log(`${gitEvent.ref}:分支不进行操作`)
+queue()
