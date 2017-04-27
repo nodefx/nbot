@@ -5,7 +5,8 @@
     "stop": "node ./app/stop.js",
     "reload": "node ./app/reload.js",
     "dev": "nodemon ./app/httpserver.js",
-    "log": "tail -f -n 200 data/stdout.log"
+    "log": "tail -f -n 200 data/stdout.log",
+    "error": "tail -f -n 200 data/stderr.log"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
