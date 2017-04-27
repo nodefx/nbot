@@ -24,7 +24,11 @@ const cmd = function (command) {
 }
 
 async function queue() {
-  await cmd('git pull')
-  await cmd('yarn reload')
+  try {
+    await cmd('git pull')
+    await cmd('yarn reload')
+  }catch (e){
+
+  }
 }
 queue().then()
