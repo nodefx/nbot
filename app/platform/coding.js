@@ -7,7 +7,7 @@ const {cmd} = require('../tool')
 
 module.exports = async function (header = {}, get = {}, post = {}) {
   let gitEvent = Object.assign({}, header, get, post)
-  switch (gitEvent.event) {
+  switch (header['x-coding-event']) {
     case 'push':
       await gitpush(gitEvent)
       break
