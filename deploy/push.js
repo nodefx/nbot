@@ -25,5 +25,5 @@ async function queue() {
   await cmd('git pull')
   await cmd('yarn reload')
 }
-if(gitEvent.ref!=='refs/heads/master') queue()
-else console.log(`${gitEvent.ref}:分支不进行操作`)
+//if(gitEvent.ref!=='refs/heads/master') queue()
+//else console.log(`${gitEvent.ref}:分支不进行操作`)
