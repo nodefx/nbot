@@ -3,14 +3,17 @@
   "scripts": {
     "start": "node ./app/start.js",
     "stop": "node ./app/stop.js",
-    "dev": "nodemon ./app/httpserver.js"
+    "reload": "node ./app/reload.js",
+    "dev": "nodemon ./app/httpserver.js",
+    "log": "tail -f -n 200 data/stdout.log"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "nedb": "^1.8.0",
-    "nodemailer": "^4.0.1"
+    "nodemailer": "^4.0.1",
+    "recluster": "^0.4.5"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
