@@ -13,7 +13,7 @@ app.use(async(ctx) => {
   console.log(`ctx.request.body`,ctx.request.body)
   await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
   let d = await db.model('push').findAsync({})
-  ctx.body ='0.1'
+  ctx.body =d||{}
 })
 
 app.listen(config.http.port)
