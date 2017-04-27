@@ -9,7 +9,7 @@ app.use(bodyParser());
 // response
 app.use(ctx => {
   ctx.body = 'devops webhook!'
-  console.log(ctx.request.header)
+  console.log(ctx.request.header,ctx.req.headers)
   console.log(ctx.request.query)
   console.log(ctx.request.body)
 })
