@@ -12,9 +12,9 @@ app.use(bodyParser());
 app.use(async(ctx) => {
   await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
   let d = await db.model('push').findAsync({})
-  ctx.body =d||{} 
+  ctx.body =d||{}
 })
 
 app.listen(config.http.port)
 
-module.exports = app
+module.exports = app 
