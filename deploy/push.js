@@ -10,7 +10,7 @@ const cmd = function (command) {
         return reject(e)
       }
       else if (oe) {
-        return resolve('[stderr:]'+oe)
+        return resolve(oe)
       }
       else if (o) {
         return resolve(o)

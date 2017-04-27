@@ -11,7 +11,7 @@ exports.cmd = function (action, args = [], stdout, stderr) {
   });
 
   child.stderr.on('data', (data) => {
-    console.log(colors.red(`错误: ${data}`));
+    console.log(colors.yellow(`警告: ${data}`));
     stderr && stderr(data)
   });
 }
