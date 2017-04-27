@@ -3,7 +3,7 @@
  */
 const {exec} = require('child_process')
 let gitEvent = process.argv[2]
-console.log(gitEvent)
+console.log('gitEvent',gitEvent)
 const cmd = function (command) {
   return new Promise((resolve, reject) => {
     exec(command, function (e, o, oe) {
