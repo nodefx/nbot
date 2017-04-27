@@ -10,11 +10,11 @@ const app = new Koa()
 app.use(bodyParser());
 // response
 app.use(async(ctx) => {
-  //console.log(`ctx.request.body`,JSON.stringify(ctx.request.body))
-  //console.log(`ctx.req.headers`,JSON.stringify(ctx.req.headers))
+  console.log(`ctx.request.body`,JSON.stringify(ctx.request.body))
+  console.log(`ctx.req.headers`,JSON.stringify(ctx.req.headers))
   await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
   //let d = await db.model('push').findAsync({})
-  ctx.body ='v0.3'
+  ctx.body ='v0.3.1'
 })
 
 app.listen(config.http.port)
