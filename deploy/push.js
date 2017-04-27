@@ -1,42 +1,33 @@
 /**
  * Created by ken on 2017/4/27.
  */
-const {spawn} = require('child_process')
-const cmd = function (action, args = []) {
-  let err, suc = ''
+const {exec} = require('child_process')
+const gitEvent = process.argv[2]
+const cmd = function (...arg) {
   return new Promise((resolve, reject) => {
-    let child = spawn(action, args)
-    child.stdout.on('data', (data) => {
-      if (data) suc += data
-    });
-
-    child.stderr.on('data', (data) => {
-      if (data) err += data
-    });
-
-    child.on('exit', function (code) {
-      if (code != 0) {
-        console.log('Failed: ' + code);
+    exec(...arg, function (e, o, oe) {
+      if (e){
+        console.error(e)
+        return reject(e)
       }
-      if (err){
-        console.error(err)
-        return reject(err)
+      else if(oe){
+        console.error(oe)
+        return reject(oe)
       }
-      console.log(suc)
-      return resolve(suc)
-    });
+      else if(o){
+        console.log(o)
+        return resolve(o)
+      }
+    })
   })
 }
-const gitEvent = process.argv[2]
-
 
 async function queue() {
   try {
-    await cmd('git',['pull'])
-    await cmd('yarn',['reload'])
-  } catch (e) {
-    console.error(e.message)
+    await cmd('git pull')
+    await cmd('yarn reload')
+  }catch (e){
+    
   }
 }
 queue().then()
-
