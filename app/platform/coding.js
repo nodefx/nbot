@@ -17,4 +17,4 @@ async function gitpush(gitEvent) {
   if (!fs.existsSync(`${gitEvent.path}/deploy/push.js`)) return
   await db.model('push').insertAsync(gitEvent)
   cmd(`sh`, [`${gitEvent.path}/deploy/push.sh`, `'${JSON.stringify(gitEvent)}'`])
-}  
+}
