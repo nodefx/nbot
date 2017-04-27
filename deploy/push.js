@@ -23,11 +23,9 @@ const cmd = function (...arg) {
 }
 
 async function queue() {
-  try {
+
     await cmd('git pull')
     await cmd('yarn reload')
-  }catch (e){
-    
-  }
+
 }
 queue().then()
