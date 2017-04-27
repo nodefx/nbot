@@ -10,6 +10,7 @@ const app = new Koa()
 app.use(bodyParser());
 // response
 app.use(async(ctx) => {
+  console.log(`ctx.request.body`,ctx.request.body)
   await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
   let d = await db.model('push').findAsync({})
   ctx.body =d||{}

@@ -27,4 +27,4 @@ async function queue() {
   await cmd('yarn stop')
   await cmd('yarn start')
 }
-queue().then()  
+queue().then()
