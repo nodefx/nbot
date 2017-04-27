@@ -17,4 +17,4 @@ app.use(async(ctx) => {
 
 app.listen(config.http.port)
 
-module.exports = app 
+module.exports = app

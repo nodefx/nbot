@@ -2,7 +2,7 @@
  * Created by ken on 2017/4/26.
  */
 const db = require('../database')
-module.exports = async function(header,get,post){
+module.exports = async function(header={},get={},post={}){
   let gitEvent = {
     ...header,
     ...get,
