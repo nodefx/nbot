@@ -3,9 +3,10 @@
  */
 const {exec} = require('child_process')
 const gitEvent = process.argv[2]
-const cmd = function (...arg) {
+const cmd = function (command) {
+  console.log(__dirname,command)
   return new Promise((resolve, reject) => {
-    exec(...arg, function (e, o, oe) {
+    exec(command, function (e, o, oe) {
       if (e) {
         console.error(e)
         return reject(e)
