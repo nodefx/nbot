@@ -23,8 +23,8 @@ const cmd = function (...arg) {
 }
 
 async function queue() {
-  await cmd('yarn stop')
   await cmd('git pull')
+  await cmd('yarn stop')
   await cmd('yarn start')
 }
 queue().then()
