@@ -7,11 +7,9 @@ const cmd = function (...arg) {
   return new Promise((resolve, reject) => {
     exec(...arg, function (e, o, oe) {
       if (e){
-        console.error(e)
         return reject(e)
       }
       else if(oe){
-        console.error(oe)
         return reject(oe)
       }
       else if(o){
@@ -23,7 +21,11 @@ const cmd = function (...arg) {
 }
 
 async function queue() {
-  await cmd('git pull')
-  await cmd('yarn reload')
+  try {
+    await cmd('git pull')
+    await cmd('yarn reload')
+  }catch (e){
+    console.error(e)
+  }
 }
 queue().then()
