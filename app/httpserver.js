@@ -8,8 +8,8 @@ const app = new Koa()
 app.use(bodyParser());
 // response
 app.use(ctx => {
-  ctx.body = 'Hello Koa!!'
-  console.log(ctx.response.header)
+  ctx.body = 'webhook!'
+  console.log(ctx.request.header)
   console.log(ctx.request.query)
   console.log(ctx.request.body)
 })
