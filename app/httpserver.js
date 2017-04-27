@@ -4,14 +4,15 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser');
 const config = require('./config')
+const platform = require('./platform/index')
+const db = require('./database')
 const app = new Koa()
 app.use(bodyParser());
 // response
-app.use(ctx => {
-  ctx.body = 'devops webhook!!'
-  console.log(ctx.request.header,ctx.req.headers)
-  console.log(ctx.request.query)
-  console.log(ctx.request.body)
+app.use(async(ctx) => {
+  await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
+  let d = await db.model('push').findAsync({})
+  ctx.body =d||{}
 })
 
 app.listen(config.http.port)

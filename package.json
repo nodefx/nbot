@@ -6,6 +6,7 @@
     "dev": "nodemon ./app/httpserver.js"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "nedb": "^1.8.0",
