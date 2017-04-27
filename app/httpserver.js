@@ -9,6 +9,7 @@ app.use(bodyParser());
 // response
 app.use(ctx => {
   ctx.body = 'Hello Koa!!'
+  console.log(ctx.response.header)
   console.log(ctx.request.query)
   console.log(ctx.request.body)
 })
