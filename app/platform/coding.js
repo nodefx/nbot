@@ -1,26 +1,21 @@
 /**
  * Created by ken on 2017/4/26.
  */
+const fs = require('fs')
 const db = require('../database')
-const {exec,spawn} = require('child_process')
-module.exports = async function(header={},get={},post={}){
-  let gitEvent = Object.assign({},header,get,post)
-  switch (gitEvent.event){
+const {cmd} = require('../tool')
+
+module.exports = async function (header = {}, get = {}, post = {}) {
+  let gitEvent = Object.assign({}, header, get, post)
+  switch (gitEvent.event) {
     case 'push':
       await gitpush(gitEvent)
       break
   }
 }
 
-async function gitpush(gitEvent){
+async function gitpush(gitEvent) {
+  if (fs.existsSync(`${gitEvent.path}/deploy/push.js`)) return
   await db.model('push').insertAsync(gitEvent)
-  //exec(`node ${gitEvent.path}/deploy/push.js '${JSON.stringify(gitEvent)}'`)
-  let child = spawn(`node`, [`${gitEvent.path}/deploy/push.js`,`'${JSON.stringify(gitEvent)}'`]);
-  child.stdout.on('data', function (buffer) {
-    const d = buffer.toString()
-    console.log(d)
-  });
-  child.stdout.on('end', function () {
-
-  });
+  cmd(`node`, [`${gitEvent.path}/deploy/push.js`, `'${JSON.stringify(gitEvent)}'`])
 }
