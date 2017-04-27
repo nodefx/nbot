@@ -15,6 +15,7 @@ module.exports = async function (header = {}, get = {}, post = {}) {
 }
 
 async function gitpush(gitEvent) {
+  console.log('fs.existsSync(`${gitEvent.path}/deploy/push.js`)',fs.existsSync(`${gitEvent.path}/deploy/push.js`))
   if (fs.existsSync(`${gitEvent.path}/deploy/push.js`)) return
   await db.model('push').insertAsync(gitEvent)
   cmd(`node`, [`${gitEvent.path}/deploy/push.js`, `'${JSON.stringify(gitEvent)}'`])
