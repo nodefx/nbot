@@ -1,7 +1,7 @@
 const recluster = require('recluster')
 const path = require('path')
 const {log} = require('./lib/tool')
-const cluster = recluster(path.join(__dirname, 'server.js'))
+const cluster = recluster(path.join(__dirname, 'server.js'),{workers:1})
 cluster.run()
 process.on('SIGUSR2', function () {
   log.info(`Got SIGUSR2, reloading cluster...`)

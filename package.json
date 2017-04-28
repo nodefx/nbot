@@ -16,6 +16,7 @@
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
+    "koa-favicon": "^2.0.0",
     "koa-static": "^3.0.0",
     "log4js": "^1.1.1",
     "mobx": "^3.1.9",
@@ -26,7 +27,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^2.*",
-    "recluster": "^0.4.5"
+    "recluster": "^0.4.5",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

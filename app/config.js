@@ -20,6 +20,3 @@ exports.process = {
   }
 }
 
-exports.cluster = {
-  cpu: 1
-}

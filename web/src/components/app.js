@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return (
       <Provider {...store}>
         <div>
-          <Router history={hashHistory} routes={routes}></Router>
+          <Router history={browserHistory} routes={routes}></Router>
           {devTool}
         </div>
       </Provider>
