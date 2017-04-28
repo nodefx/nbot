@@ -4,7 +4,8 @@
 const {spawn} = require('child_process')
 const fs = require('fs')
 const log4js = require('log4js')
-const logger = log4js.getLogger();
+log4js.configure({appenders: [{type: 'console'}], replaceConsole: true})
+const logger = log4js.getLogger('console')
 exports.log = logger
 exports.cmd = function (action, args = [], stdout, stderr) {
   let child = spawn(action, args)
@@ -33,7 +34,6 @@ exports.readFile = function (src) {
     })
   })
 }
-
 
 exports.formatTime = function (date = new Date(), fmt = 'yyyy-MM-dd hh:mm:ss') {
   var o = {

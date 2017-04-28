@@ -17,8 +17,8 @@ app.use(bodyParser())
 // response
 app.use(async(ctx) => {
   const check = await platform(ctx.req.headers, ctx.request.query, ctx.request.body)
-   tool.debugLog(ctx)
-  // let d = await db.model('push').findAsync({}) 
+  tool.debugLog(ctx)
+  // let d = await db.model('push').findAsync({})
   if (check !== false)return ctx.body = {success: true}
   tool.log.debug(`${webpath}/index.html`)
   ctx.body = await tool.readFile(`${webpath}/index.html`)
