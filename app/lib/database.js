@@ -20,7 +20,7 @@ function toPromise(o) {
   const wl = ['insert', 'find', 'update', 'findOne', 'remove']
   Object.getOwnPropertyNames(o.__proto__).map((key) => {
     if (wl.indexOf(key) > -1) {
-      o[key+'Async'] = promisify(o[key], o)
+      o[key + 'Async'] = promisify(o[key], o)
     }
   })
 }
@@ -29,8 +29,8 @@ let promisify = (fn, receiver) => {
   return (...args) => {
     return new Promise((resolve, reject) => {
       fn.apply(receiver, [...args, (err, res) => {
-        return err ? reject(err) : resolve(res);
-      }]);
-    });
-  };
-};
+        return err ? reject(err) : resolve(res)
+      }])
+    })
+  }
+}

@@ -9,4 +9,3 @@ if (!fs.existsSync(conf.process.path.root)) {
 }
 
 exec(`nohup node index.js > ${conf.process.path.stdout} 2> ${conf.process.path.stderr} & echo $! > ${conf.process.path.pid}`)
-

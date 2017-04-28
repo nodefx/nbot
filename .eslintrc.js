@@ -1,17 +1,18 @@
 module.exports = {
   root: true,
-  globals:{
-    wx:false,
-    getApp:false,
-    App:false,
-    Page:false
+  globals: {
+    wx: false,
+    getApp: false,
+    App: false,
+    Page: false
   },
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'
   },
   env: {
-    browser: true
+    browser: true,
+    node: true
   },
   extends: 'standard',
   // add your custom rules here

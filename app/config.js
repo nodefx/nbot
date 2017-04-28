@@ -12,14 +12,13 @@ exports.app = {
 
 exports.process = {
   path: {
-    root:`${rootpath}/data`,
+    root: `${rootpath}/data`,
     pid: `${rootpath}/data/pid.lock`,
     stdout: `${rootpath}/data/stdout.log`,
     stderr: `${rootpath}/data/stderr.log`
   }
 }
 
-
 exports.cluster = {
-  cpu:1
+  cpu: 1
 }

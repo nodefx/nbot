@@ -2,9 +2,11 @@
  * Created by ken on 2017/4/27.
  */
 const {exec} = require('child_process')
-let gitEvent = process.argv[2]
-console.log('gitEvent',gitEvent)
-const cmd = function (command) {
+const fs = require('fs')
+const path = require('path')
+const packageConf = GetPackage()// 获取包配置
+const gitEvent = process.argv[2] // 获取git 事件变量
+function cmd(command) {
   return new Promise((resolve, reject) => {
     exec(command, function (e, o, oe) {
       if (e) {
@@ -19,9 +21,17 @@ const cmd = function (command) {
     })
   }).then(o => console.log(__dirname, command, o)).catch(e => console.error(__dirname, command, e))
 }
+function GetPackage() {
+  let conf = fs.readFileSync(path.join(path.dirname(__dirname), 'package.json'))
+  return conf && JSON.stringify(conf.toString()) || ''
+}
 
 async function queue() {
   await cmd('git pull')
+  const newConf = GetPackage()
+  if (newConf !== packageConf) {
+    await cmd('yarn')
+  }
   await cmd('yarn reload')
 }
 queue()

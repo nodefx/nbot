@@ -6,12 +6,17 @@ const colors = require('colors/safe')
 exports.cmd = function (action, args = [], stdout, stderr) {
   let child = spawn(action, args)
   child.stdout.on('data', (data) => {
-    console.log(colors.blue(`跟踪: ${data}`));
+    console.log(colors.blue(`跟踪: ${data}`))
     stdout && stdout(data)
-  });
+  })
 
   child.stderr.on('data', (data) => {
-    console.log(colors.yellow(`警告: ${data}`));
+    console.log(colors.yellow(`警告: ${data}`))
     stderr && stderr(data)
-  });
+  })
+}
+
+exports.debugLog = function(ctx) {
+  console.log(`ctx.request.body`, JSON.stringify(ctx.request.body))
+  console.log(`ctx.req.headers`, JSON.stringify(ctx.req.headers))
 }

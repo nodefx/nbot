@@ -2,19 +2,25 @@
  * Created by ken on 2017/4/26.
  */
 const Koa = require('koa')
-const bodyParser = require('koa-bodyparser');
+const koaStatic = require('koa-static')
+const bodyParser = require('koa-bodyparser')
 const config = require('./config')
+const packageConf = require('../package.json')
 const platform = require('./platform/index')
-const db = require('./database')
+const db = require('./lib/database')
+const tool = require('./lib/tool')
 const app = new Koa()
-app.use(bodyParser());
+app.use(koaStatic(__dirname + '/web'))
+app.use(bodyParser())
 // response
 app.use(async(ctx) => {
-  console.log(`ctx.request.body`,JSON.stringify(ctx.request.body))
-  console.log(`ctx.req.headers`,JSON.stringify(ctx.req.headers))
-  await platform(ctx.req.headers,ctx.request.query,ctx.request.body)
-  //let d = await db.model('push').findAsync({})
-  ctx.body ='v0.3.8'
+  const check = await platform(ctx.req.headers, ctx.request.query, ctx.request.body)
+  // tool.debugLog(ctx)
+  // let d = await db.model('push').findAsync({})
+  if (check !== false) {
+    return ctx.body = {success: true}
+  }
+  return ctx.body = `node devops ${packageConf.version}`
 })
 
 app.listen(config.http.port)
