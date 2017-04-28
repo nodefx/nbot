@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, browserHistory} from 'react-router'
+import {Router, browserHistory,hashHistory} from 'react-router'
 import createRoutes from 'route/index'
 import {Provider} from 'mobx-react'
 import {store} from 'store/index'
@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return (
       <Provider {...store}>
         <div>
-          <Router history={browserHistory} routes={routes}></Router>
+          <Router history={hashHistory} routes={routes}></Router>
           {devTool}
         </div>
       </Provider>

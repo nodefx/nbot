@@ -11,15 +11,17 @@ function cmd(command) {
     exec(command, function (e, o, oe) {
       if (e) {
         return reject(e)
-      }
-      else if (oe) {
+      } else if (oe) {
         return resolve(oe)
-      }
-      else if (o) {
+      } else if (o) {
         return resolve(o)
       }
     })
-  }).then(o => console.log(__dirname, command, o)).catch(e => console.error(__dirname, command, e))
+  }).then(o => {
+    console.log(`${__filename} ${command} ${o}`)
+  }).catch(o => {
+    console.error(`${__filename} ${command} ${o}`)
+  })
 }
 function GetPackage() {
   let conf = fs.readFileSync(path.join(path.dirname(__dirname), 'package.json'))
@@ -34,4 +36,6 @@ async function queue() {
   }
   await cmd('yarn reload')
 }
-queue()
+queue().catch(o => {
+  console.error(o)
+})
