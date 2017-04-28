@@ -20,7 +20,7 @@ app.use(async(ctx) => {
    tool.debugLog(ctx)
   // let d = await db.model('push').findAsync({}) 
   if (check !== false)return ctx.body = {success: true}
-  console.log(`${webpath}/index.html`)
+  tool.log.debug(`${webpath}/index.html`)
   ctx.body = await tool.readFile(`${webpath}/index.html`)
 })
 
