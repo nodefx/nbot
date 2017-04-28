@@ -40,12 +40,16 @@ io.on('connection', (socket) => {
   socket.emit('connetion', {connetion: true})
   let t = {}
   socket.on('server_process', () => {
+    socket.emit('client_process', {
+      uptime: process.uptime(),
+      memory: process.memoryUsage()
+    })
     t = setInterval(() => {
       socket.emit('client_process', {
         uptime: process.uptime(),
         memory: process.memoryUsage()
       })
-    }, 5000)
+    }, 3000)
   })
   socket.on('disconnect', () => {
     clearInterval(t)
