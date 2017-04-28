@@ -7,7 +7,9 @@ exports.http = {
   port: 1357
 }
 exports.app = {
-  rootpath: rootpath
+  path: {
+    root: rootpath
+  }
 }
 
 exports.process = {

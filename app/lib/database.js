@@ -2,13 +2,12 @@
  * Created by ken on 2017/4/26.
  */
 const Datastore = require('nedb')
-const path = require('path')
-const rootpath = path.dirname(__dirname)
+const config = require('../config')
 let cacheDb = {}
 const db = {
   model: (name = 'database') => {
     if (!cacheDb[name]) {
-      cacheDb[name] = new Datastore({filename: `${rootpath}/data/${name}.db`, autoload: true})
+      cacheDb[name] = new Datastore({filename: `${config.app.path.root}/data/${name}.db`, autoload: true})
       toPromise(cacheDb[name])
     }
     return cacheDb[name]
