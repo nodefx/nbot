@@ -5,8 +5,7 @@
     "start": "node ./app/start.js",
     "stop": "node ./app/stop.js",
     "reload": "node ./app/reload.js",
-    "log": "tail -f -n 200 data/stdout.log",
-    "error": "tail -f -n 200 data/stderr.log",
+    "log": "tail -f -n 200 data/access.log",
     "web": "webpack-dev-server --config ./web/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js"
   },

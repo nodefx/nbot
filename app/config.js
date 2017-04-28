@@ -16,8 +16,7 @@ exports.process = {
   path: {
     root: `${rootpath}/data`,
     pid: `${rootpath}/data/pid.lock`,
-    stdout: `${rootpath}/data/stdout.log`,
-    stderr: `${rootpath}/data/stderr.log`
+    access: `${rootpath}/data/access.log`
   }
 }
 
