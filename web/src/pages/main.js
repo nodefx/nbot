@@ -10,14 +10,8 @@ const menuConf = [
   {name: 'ssh管理', link: '/devops/ssh', 'icon': 'code'}
 ]
 export default class extends React.Component {
-
   state = {
     collapsed: false
-  }
-
-  constructor(props) {
-    super(props)
-    console.log(props.location.pathname)
   }
 
   toggle = () => {
@@ -27,6 +21,8 @@ export default class extends React.Component {
   }
 
   render() {
+    console.log('this.props')
+    const {location, children} = this.props
     const MenuItem = menuConf.map((v) => (
       <Menu.Item key={v.link}>
         <Link to={v.link}>
@@ -35,17 +31,23 @@ export default class extends React.Component {
         </Link>
       </Menu.Item>
     ))
+
+    if (['/oauth/login'].indexOf(location.pathname) > -1) {
+      return <div>{children}</div>
+    }
+
     return (
       <Layout>
         <Sider
           trigger={null}
           collapsible
           collapsed={this.state.collapsed}
+          style={{minHeight: '100%'}}
         >
           <div className="logo">
-            Node Devops
+            {!this.state.collapsed && `Node Devops`}
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={[this.props.location.pathname]}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
             {MenuItem}
           </Menu>
         </Sider>
@@ -57,8 +59,8 @@ export default class extends React.Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
-            {this.props.children}
+          <Content style={{margin: '24px 16px', padding: 24, background: '#fff'}}>
+            {children}
           </Content>
         </Layout>
       </Layout>

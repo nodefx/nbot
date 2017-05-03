@@ -1,12 +1,11 @@
-import main from 'components/main'
-import nomatch from 'components/nomatch'
-function errorLoading(err) {
-  console.error('找不到响应模块', err);
-  return () => cb(null, nomatch);
+import main from 'pages/main'
+import nomatch from 'pages/nomatch'
+function errorLoading(cb) {
+  return (err) => cb(null, nomatch)
 }
 
 function loadRoute(location, cb, key) {
-  return (module) => cb(null, module.default);
+  return (module) => cb(null, module.default)
 }
 
 export const loadComponent = function (defaultKey = false) {
@@ -18,7 +17,7 @@ export const loadComponent = function (defaultKey = false) {
         key = `${key}/${location.params.action}`
       }
     }
-    System.import(`pages/${key}.js`).then(loadRoute(location, cb, key)).catch(errorLoading)
+    System.import(`pages/${key}/index.js`).then(loadRoute(location, cb, key)).catch(errorLoading(cb))
   }
 }
 export default function createRoutes() {

@@ -1,8 +1,8 @@
 import React from 'react'
-import {Router, browserHistory,hashHistory} from 'react-router'
-import createRoutes from 'route/index'
+import {Router, browserHistory} from 'react-router'
+import createRoutes from 'pages/router'
 import {Provider} from 'mobx-react'
-import {store} from 'store/index'
+import {store} from 'store'
 import DevTools from 'mobx-react-devtools'
 const routes = createRoutes()
 export default class App extends React.Component {
