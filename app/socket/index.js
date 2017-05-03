@@ -23,5 +23,4 @@ module.exports = function (server) {
       clearInterval(t)
     })
   })
-
 }

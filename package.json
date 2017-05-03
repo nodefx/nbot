@@ -5,12 +5,13 @@
     "start": "node ./app/start.js",
     "stop": "node ./app/stop.js",
     "reload": "node ./app/reload.js",
-    "log": "tail -f -n 200 data/access.log",
+    "log": "node ./app/log.js",
     "web": "webpack-dev-server --config ./web/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js",
     "watch": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js --watch"
   },
   "dependencies": {
+    "always-tail": "^0.2.0",
     "antd": "^2.9.*",
     "axios": "^0.16.1",
     "koa": "^2.2.0",
