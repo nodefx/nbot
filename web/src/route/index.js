@@ -9,8 +9,9 @@ function loadRoute(location, cb, key) {
   return (module) => cb(null, module.default);
 }
 
-export const loadComponent = function (key = false) {
+export const loadComponent = function (defaultKey = false) {
   return function (location, cb) {
+    let key = defaultKey
     if (!key) {
       key = `${location.params.module}/${location.params.controller}`
       if (location.params.action) {

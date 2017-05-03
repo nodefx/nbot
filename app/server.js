@@ -27,31 +27,11 @@ app.use(async(ctx) => {
 const server = app.listen(config.http.port, () => {
   console.log(`listen port : ${config.http.port}`)
 })
-
 app.on('error', err => {
-  console.log(`listen error : ${err.message}`);
-  process.exit(1);
+  console.log(`listen error : ${err.message}`)
+  process.exit(1)
 })
-
 //
-const io = require('socket.io').listen(server)
-io.on('connection', (socket) => {
-  console.log('connection socket')
-  socket.emit('connetion', {connetion: true})
-  let t = {}
-  socket.on('server_process', () => {
-    socket.emit('client_process', {
-      uptime: process.uptime(),
-      memory: process.memoryUsage()
-    })
-    t = setInterval(() => {
-      socket.emit('client_process', {
-        uptime: process.uptime(),
-        memory: process.memoryUsage()
-      })
-    }, 3000)
-  })
-  socket.on('disconnect', () => {
-    clearInterval(t)
-  })
-})
+module.exports = app
+//  启动 websocket 服务
+require('./socket/index')(server)

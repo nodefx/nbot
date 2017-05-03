@@ -1,16 +1,27 @@
 /**
  * Created by ken on 2017/4/29.
  */
-module.exports = function (app) {
-  const http = require('http')
-  const server = http.Server(app.callback())
-  const io = require('socket.io')(server)
-
-  io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-      console.log(data);
-    });
+module.exports = function (server) {
+  const io = require('socket.io').listen(server)
+  io.on('connection', (socket) => {
+    console.log('connection socket')
+    socket.emit('connetion', {connetion: true})
+    let t = {}
+    socket.on('server_process', () => {
+      socket.emit('client_process', {
+        uptime: process.uptime(),
+        memory: process.memoryUsage()
+      })
+      t = setInterval(() => {
+        socket.emit('client_process', {
+          uptime: process.uptime(),
+          memory: process.memoryUsage()
+        })
+      }, 3000)
+    })
+    socket.on('disconnect', () => {
+      clearInterval(t)
+    })
   })
 
 }
