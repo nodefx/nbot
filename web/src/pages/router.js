@@ -1,7 +1,10 @@
 import main from 'pages/main'
 import nomatch from 'pages/nomatch'
 function errorLoading(cb) {
-  return (err) => cb(null, nomatch)
+  return (err) => {
+    console.error(err)
+    cb(null, nomatch)
+  }
 }
 
 function loadRoute(location, cb, key) {

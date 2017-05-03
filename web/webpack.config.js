@@ -116,7 +116,12 @@ module.exports = function (env) {
           test: /\.(less|css)$/,
           use: [
             'style-loader',
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true // import styles from less is work
+              }
+            },
             'less-loader',
             {
               loader: 'postcss-loader',

@@ -26,6 +26,7 @@
     "nodemailer": "^4.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-helmet": "^5.0.3",
     "react-router": "^2.*",
     "recluster": "^0.4.5",
     "socket.io": "^1.7.3"
