@@ -4,10 +4,8 @@
 import {observable, action, autorun, computed} from 'mobx'
 export default class {
   @observable member = {
-    name:'ken'
+    name: 'ken'
   }
-
-
 
   @computed get getVal() {
     return JSON.stringify(this.member)

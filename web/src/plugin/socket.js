@@ -9,10 +9,9 @@ export const socketAsync = function (name) {
       resolve(d)
     })
   })
-
 }
 export default () => {
-  console.log('socket bootstrap 1');
+  console.log('socket bootstrap 1')
   socket.on('connetion', function (data) {
     console.log(data)
   })

@@ -24,10 +24,10 @@ if (module.hot) {
   })
 }
 
-function rootKeys(){
-  if(process.env.NODE_ENV==='development'){
+function rootKeys() {
+  if (process.env.NODE_ENV === 'development') {
     return Math.random()
-  }else {
+  } else {
     return process.env.NODE_ENV
   }
 }

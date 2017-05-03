@@ -5,9 +5,8 @@ import React from 'react'
 import {inject, observer} from 'store'
 import {Button, Row, Form, Input} from 'antd'
 const {Item, create} = Form
-
-//
 import styles from './index.less'
+console.log('styles',styles)
 //
 const storeName = {
   member: 'common/member',
@@ -17,9 +16,6 @@ const storeName = {
 @observer
 @create({})
 export default class extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     const {validateFieldsAndScroll} = this.props.form
@@ -28,7 +24,6 @@ export default class extends React.Component {
       validateFieldsAndScroll((errors, values) => {
         if (errors) {
           console.log('errors', errors)
-          return
         }
       })
     }
