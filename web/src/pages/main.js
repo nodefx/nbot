@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
 const {Header, Sider, Content} = Layout
+// import 'antd/dist/antd.less'
 import './main.less'
 const menuConf = [
   {name: '控制面板', link: '/', 'icon': 'desktop'},

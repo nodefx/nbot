@@ -26,13 +26,11 @@ export default class extends React.Component {
     console.log('process')
     socket.emit('server_process')
     socket.on('client_process', (d) => {
-      console.log(d)
       this.setState({proc: d})
     })
   }
 
   render() {
-    console.log(this.state)
     let {proc} = this.state
     proc = JSON.stringify(proc)
     return (

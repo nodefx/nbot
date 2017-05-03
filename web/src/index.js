@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
-import 'antd/dist/antd.less'
 import App from 'pages/app'
 import socketIo from 'plugin/socket'
 socketIo()

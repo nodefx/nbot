@@ -6,7 +6,6 @@ const path = require('path')
 const rootPath = path.dirname(__dirname)
 const sourcePath = path.join(rootPath, './web/src')
 const buildPath = path.join(rootPath, './web/build')
-const autoprefixer = require('autoprefixer')
 module.exports = function (env) {
   //
   const nodeEnv = env && env.prod ? 'production' : 'development'
@@ -108,7 +107,8 @@ module.exports = function (env) {
             ],
             'plugins': [
               'react-hot-loader/babel',
-              'transform-decorators-legacy'
+              'transform-decorators-legacy',
+              ['react-css-modules', {context: sourcePath}]
             ]
           }
         },
@@ -116,21 +116,18 @@ module.exports = function (env) {
           test: /\.(less|css)$/,
           use: [
             'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true // import styles from less is work
-              }
-            },
-            'less-loader',
+            'css-loader',
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [
-                  autoprefixer('last 2 versions', 'ie 10')
-                ]
+                plugins: () => ([
+                  require('autoprefixer')({
+                    browsers: ['last 2 versions', 'ie >= 9']
+                  })
+                ])
               }
-            }
+            },
+            'less-loader'
           ]
         }
       ]
