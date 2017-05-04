@@ -1,10 +1,7 @@
 module.exports = {
   root: true,
   globals: {
-    wx: false,
-    getApp: false,
-    App: false,
-    Page: false
+    requireRoot:true
   },
   parser: 'babel-eslint',
   parserOptions: {

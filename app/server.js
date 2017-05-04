@@ -1,14 +1,18 @@
 /**
  * Created by ken on 2017/4/26.
  */
+// bootstrap
+// ::TODO 监听文件夹里的所有文件
+require('./bootstrap/global')()
+// 启动 server 服务
 const Koa = require('koa')
 const statics = require('koa-static')
 const compress = require('koa-compress')
 const bodyParser = require('koa-bodyparser')
 const favicon = require('koa-favicon')
-const config = require('./config')
-const platform = require('./platform/index')
-const {readFile} = require('./lib/tool')
+const config = requireRoot('app/config')
+const platform = requireRoot('app/platform/index')
+const {readFile} = requireRoot('app/lib/tool')
 const app = new Koa()
 const webpath = config.app.path.root + '/web/build'
 app.use(statics(webpath))
@@ -34,4 +38,4 @@ app.on('error', err => {
 //
 module.exports = app
 //  启动 websocket 服务
-require('./socket/index')(server)
+requireRoot('app/socket/index')(server)

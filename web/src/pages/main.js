@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
 const {Header, Sider, Content} = Layout
-import 'antd/dist/antd.css'
 import 'less/main.less'
 const menuConf = [
   {name: '控制面板', link: '/', 'icon': 'desktop'},
@@ -22,7 +21,6 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log('this.props')
     const {location, children} = this.props
     const MenuItem = menuConf.map((v) => (
       <Menu.Item key={v.link}>

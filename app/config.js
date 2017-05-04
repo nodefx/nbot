@@ -23,3 +23,7 @@ exports.process = {
 exports.cluster = {
   cpu: 1 // 为了兼容socket 采取 内存级别的数据共享机制 ::TODO 接入redis 可以做分布式共享
 }
+
+exports.jwt = {
+  code: '!@#$#%$^%&&*^()((^*%&%^$%'
+}

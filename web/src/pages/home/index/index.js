@@ -4,7 +4,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {inject, observer} from 'store'
-import {socket} from 'plugin/socket'
+import {socket} from 'socket/index'
 const storeName = {
   member: 'common/member'
 }

@@ -6,7 +6,6 @@ import {inject, observer} from 'store'
 import {Button, Row, Form, Input} from 'antd'
 const {Item, create} = Form
 import styles from './index.less'
-console.log('styles',styles)
 //
 const storeName = {
   member: 'common/member',
@@ -31,22 +30,22 @@ export default class extends React.Component {
     return (
       <div className={styles.form}>
         <div className={styles.logo}>
-
+          Node Devops
         </div>
         <form>
           <Item>
-            <Input size="large" onPressEnter={handleOk} placeholder="Username"/>
+            <Input size="large" onPressEnter={handleOk} placeholder="账号"/>
           </Item>
           <Item>
-            <Input size="large" type="password" onPressEnter={handleOk} placeholder="Password"/>
+            <Input size="large" type="password" onPressEnter={handleOk} placeholder="密码"/>
           </Item>
           <Row>
             <Button type="primary" size="large">
-              Sign in
+              登陆
             </Button>
             <p>
-              <span>Username：guest</span>
-              <span>Password：guest</span>
+              <span>账号：admin</span>
+              <span>密码：admin</span>
             </p>
           </Row>
 

@@ -8,4 +8,5 @@ if (!fs.existsSync(conf.process.path.root)) {
   fs.mkdirSync(conf.process.path.root)
 }
 
+// 启动server
 exec(`nohup node index.js > ${conf.process.path.access} 2>&1 & echo $! > ${conf.process.path.pid}`)

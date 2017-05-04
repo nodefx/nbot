@@ -8,12 +8,14 @@
     "log": "node ./app/log.js",
     "web": "webpack-dev-server --config ./web/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js",
-    "watch": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js --watch"
+    "watch": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js --watch",
+    "dev": "cross-env NODE_ENV=development webpack --env.prod=true --config ./web/webpack.config.js --watch"
   },
   "dependencies": {
     "always-tail": "^0.2.0",
     "antd": "^2.9.*",
     "axios": "^0.16.1",
+    "jsonwebtoken": "^7.4.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
@@ -22,6 +24,7 @@
     "log4js": "^1.1.1",
     "mobx": "^3.1.9",
     "mobx-react": "^4.1.7",
+    "moment": "^2.18.1",
     "nedb": "^1.8.0",
     "node-ssh": "^4.2.2",
     "nodemailer": "^4.0.1",
