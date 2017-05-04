@@ -44,7 +44,7 @@ export default class extends React.Component {
           style={{minHeight: '100%'}}
         >
           <div className="logo">
-            {!this.state.collapsed && `Node Devops`}
+            {!this.state.collapsed && `Nbot`}
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
             {MenuItem}

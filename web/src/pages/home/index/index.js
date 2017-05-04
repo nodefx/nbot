@@ -3,40 +3,29 @@
  */
 import React from 'react'
 import {Link} from 'react-router'
-import {inject, observer} from 'store'
+import {inject, observer} from 'store/index'
 import {socket} from 'socket/index'
 const storeName = {
-  member: 'common/member'
+  home: 'home/index'
 }
 @inject(storeName)
 @observer
 export default class extends React.Component {
-  state = {
-    proc: {}
+
+  componentDidMount() {
+    this.props[storeName.home].listenSystem()
   }
 
-  constructor(props) {
-    super(props)
-    this.process()
-    console.log('this.props', this.props)
-    this.props[storeName.member].setVal('saa')
-  }
-
-  process() {
-    console.log('process')
-    socket.emit('server_process')
-    socket.on('client_process', (d) => {
-      this.setState({proc: d})
-    })
+  componentWillUnmount() {
+    this.props[storeName.home].unListenSystem()
   }
 
   render() {
-    let {proc} = this.state
-    proc = JSON.stringify(proc)
+    let proc = JSON.stringify(this.props[storeName.home].data)
     return (
       <div>
         <h1>nodejs devops!</h1>
-        <Link to="/oauth/login">登陆</Link>{this.props[storeName.member].member.name}
+        <Link to="/oauth/login">登陆</Link>
         <h2>{proc}</h2>
       </div>
     )

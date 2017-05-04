@@ -30,7 +30,7 @@ export default class extends React.Component {
     return (
       <div className={styles.form}>
         <div className={styles.logo}>
-          Node Devops
+          Nbot
         </div>
         <form>
           <Item>

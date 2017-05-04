@@ -14,18 +14,29 @@ const registerModule = function (StoreName) {
   }
 }
 
-registerModule('common/menu')
-registerModule('common/member')
 const inject = function (...args) {
   if (typeof args[0] === 'object') {
     let keys = []
     Object.keys(args[0]).map(key => {
+      if(!store[args[0][key]]){
+       registerModule(args[0][key])
+       }
       keys.push(args[0][key])
     })
     return injectMobx(...keys)
   }
+  if(!store[args[0]]){
+   registerModule(args[0])
+   }
   return injectMobx(...args)
 }
+
+registerModule('common/menu')
+registerModule('common/member')
+registerModule('home/index')
+
+
+
 export {
   inject,
   observer,

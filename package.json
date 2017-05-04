@@ -9,7 +9,7 @@
     "web": "webpack-dev-server --config ./web/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js",
     "watch": "cross-env NODE_ENV=production webpack --env.prod=true --config ./web/webpack.config.js --watch",
-    "dev": "cross-env NODE_ENV=development webpack --env.prod=true --config ./web/webpack.config.js --watch"
+    "dev": "cross-env NODE_ENV=development webpack --env.prod=false --config ./web/webpack.config.js --watch"
   },
   "dependencies": {
     "always-tail": "^0.2.0",
