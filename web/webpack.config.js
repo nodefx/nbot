@@ -39,7 +39,18 @@ module.exports = function (env) {
       verbose: true,
       dry: false,
       exclude: []
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: sourcePath,
+        postcss: [
+          require('autoprefixer')({
+            browsers: ['last 2 versions', 'ie >= 10']
+          })
+        ]
+      }
     })
+
   ]
 
   let entryApp = [
@@ -113,21 +124,32 @@ module.exports = function (env) {
           }
         },
         {
-          test: /\.(less|css)$/,
+          test: /\.css/,
           use: [
             'style-loader',
             'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: () => ([
-                  require('autoprefixer')({
-                    browsers: ['last 2 versions', 'ie >= 9']
-                  })
-                ])
-              }
-            },
-            'less-loader'
+            'postcss-loader'
+          ]
+        },
+        {
+          test: /\.less/,
+          include: `${sourcePath}/pages`,
+          use: [
+            'style-loader',
+            {loader: 'css-loader', options: {modules: true}},
+            'less-loader',
+            'postcss-loader'
+          ]
+        },
+        {
+          test: /\.less$/,
+          exclude: `${sourcePath}/pages`,
+          use: [
+            'style-loader',
+            'css-loader',
+            'less-loader',
+            'postcss-loader'
+
           ]
         }
       ]

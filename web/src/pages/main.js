@@ -2,8 +2,8 @@ import React from 'react'
 import {Link} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
 const {Header, Sider, Content} = Layout
-// import 'antd/dist/antd.less'
-import './main.less'
+import 'antd/dist/antd.css'
+import 'less/main.less'
 const menuConf = [
   {name: '控制面板', link: '/', 'icon': 'desktop'},
   {name: '项目管理', link: '/devops/project', 'icon': 'appstore'},
