@@ -1,6 +1,24 @@
 # nbot
 ### nodejs devops platform
-### base koa socket.io react webpack2 ...
+项目构建自动化管理平台 [Road Map](https://github.com/nodenext/nbot/blob/master/document/roadmap.md "road map")
+
+## base on
++ nodejs 7.6+
++ koa2 
++ socket.io 
++ react 
++ webpack2
+
+## script
++ `yarn start` 启动服务 后台进程(暂不支持windows) 默认端口 `1357` 
++ `yarn stop`  停止服务 
++ `yarn reload` 重启服务  
++ `yarn web` 启动react webpack-dev服务器 默认端口 `1355` 
++ `yarn build` react 生成正式环境代码 
++ `yarn watch` 联机调试 访问端口 `1357` 
++ `yarn log` 显示服务器日志  
++ `yarn dev` 开发环境与服务器联调 端口`1357`  
+
 ## eslint 代码规范
 ```
 sudo npm install -g eslint babel-eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise@latest eslint-plugin-standard
