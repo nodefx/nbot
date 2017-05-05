@@ -3,4 +3,5 @@ yarn.lock
 data/*
 web/build/*
 .idea/*
-.idea
+.idea*
+\.idea*
