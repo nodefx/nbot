@@ -11,7 +11,7 @@ const storeName = {
   member: 'common/member',
   menu: 'common/menu'
 }
-@inject(storeName)
+@inject('appStore')
 @observer
 @create({})
 export default class extends React.Component {
