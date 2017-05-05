@@ -23,6 +23,10 @@
 + `yarn watch` 联机调试
 + `yarn log` 显示服务器日志
 
+## 二次开发模式建议
+1. 验证UI与api之间的联调，可以执行 `yarn dev` 或者 `yarn dev && yarn server`
+2. 双开发模式建议下载一个 nodemon,然后执行 `yarn dev` & `nodemon ./app/server`
+
 ## eslint 代码规范
 ```
 sudo npm install -g eslint babel-eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise@latest eslint-plugin-standard
