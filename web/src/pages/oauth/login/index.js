@@ -2,7 +2,7 @@
  * Created by ken on 2017/4/11.
  */
 import React from 'react'
-import {inject, observer} from 'store'
+import {inject, observer} from 'store/index'
 import {Button, Row, Form, Input} from 'antd'
 const {Item, create} = Form
 import styles from './index.less'

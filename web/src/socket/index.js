@@ -3,15 +3,12 @@
  */
 const io = require('socket.io-client')
 export const socket = io()
-export const socketAsync = function (name) {
-  return new Promise((resolve) => {
-    socket.on(name, function (d) {
-      resolve(d)
-    })
-  })
+export const getSocket = (name,cb)=>{
+  socket.emit(name,true)
+  socket.on(name, cb)
 }
 export default () => {
   socket.on('connetion', function (data) {
-    console.log('client:connetion',data)
+    console.log(data)
   })
 }

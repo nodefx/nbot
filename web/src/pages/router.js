@@ -1,6 +1,5 @@
 import main from 'pages/main'
 import nomatch from 'pages/nomatch'
-// import {registerModule} from 'store/index'
 function errorLoading(cb) {
   return (err) => {
     console.error(err)
@@ -9,7 +8,6 @@ function errorLoading(cb) {
 }
 
 function loadRoute(location, cb, key) {
-  // registerModule(key)
   return (module) => cb(null, module.default)
 }
 

@@ -7,11 +7,11 @@ export default class {
   @observable data = {}
 
   @action listen() {
-    getSocket('home.index.system', (d) => {
+    getSocket('devops.project.index', (d) => {
       this.data = d
     })
   }
   @action removeListen() {
-    socket.removeListener('home.index.system')
+    socket.removeListener('devops.project.index')
   }
 }

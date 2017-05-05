@@ -7,7 +7,7 @@ socketIo()
 
 const render = Component => {
   ReactDOM.render(
-    <AppContainer key={rootKeys()}>{/* 防止开发的时候热更不成功 增加 Math.random */}
+    <AppContainer>{/* 防止开发的时候热更不成功 增加 Math.random */}
       <Component />
     </AppContainer>,
     document.getElementById('App')

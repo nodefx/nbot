@@ -8,25 +8,10 @@ const jwtSocket = require('./bootstrap/socket')
 const moment = require('moment')
 let fileList = []
 let runList = {}
-module.exports = function (server) {
-  const io = require('socket.io').listen(server, {origins: '*:*', transports: ['websocket', 'polling']})
-
-  new jwtSocket(io, (socket) => {
-    walk(`${config.app.path.root}/app/socket/api`)
-    fileList.map(v => {
-      if (!runList[v]) {
-        runList[v] = require(v)
-      }
-    })
-    Object.keys(runList).map((key) => {
-      if (typeof runList[key] === 'function') {
-        runList[key](socket)
-        log.trace('执行socket api 模块 :', key, moment().format('YYYY-MM-DD HH:mm:ss'))
-      }
-    })
-  })
-}
-
+/**
+ * 遍历目录
+ * @param path
+ */
 function walk(path) {
   let dirList = fs.readdirSync(path)
   dirList.forEach(function (item) {
@@ -35,5 +20,36 @@ function walk(path) {
     } else {
       fileList.push(path + '/' + item)
     }
+  })
+}
+
+module.exports = function (server) {
+  const io = require('socket.io').listen(server, {origins: '*:*', transports: ['websocket', 'polling']})
+
+  new jwtSocket(io, (socket) => {
+
+    function bindSocket(name,data) {
+      socket.on(name, () => {
+        socket.emit(name, data)
+      })
+    }
+
+    function getSocket(name,cb){
+      socket.emit(name,true)
+      socket.on(name, cb)
+    }
+
+    walk(`${config.app.path.root}/app/socket/api`)
+    fileList.map(v => {
+      if (!runList[v]) {
+        runList[v] = require(v)
+      }
+    })
+    Object.keys(runList).map((key) => {
+      if (typeof runList[key] === 'function') {
+        runList[key](socket,bindSocket,getSocket)
+        log.trace('执行socket api 模块 :', key, moment().format('YYYY-MM-DD HH:mm:ss'))
+      }
+    })
   })
 }

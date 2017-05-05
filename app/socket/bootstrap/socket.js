@@ -11,7 +11,7 @@ class jwtSocket {
       //io.on('auth', this.auth(fn))
 
       io.on('connection', (socket) => {
-        socket.emit('connetion', __dirname)
+        socket.emit('connetion','connetion success')
         fn.call(this,socket)
       })
     } catch (e) {

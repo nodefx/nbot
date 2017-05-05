@@ -4,29 +4,29 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {inject, observer} from 'store/index'
-import {socket} from 'socket/index'
 const storeName = {
   home: 'home/index'
 }
-@inject(storeName)
+@inject('appStore')
 @observer
 export default class extends React.Component {
-
-  componentDidMount() {
-    this.props[storeName.home].listenSystem()
+  componentWillMount(){
+    this.props.appStore.register(storeName)
   }
-
+  componentDidMount() {
+    this.props.appStore.store[storeName.home].listen()
+  }
   componentWillUnmount() {
-    this.props[storeName.home].unListenSystem()
+    this.props.appStore.store[storeName.home].removeListen()
   }
 
   render() {
-    let proc = JSON.stringify(this.props[storeName.home].data)
+    const {data} = this.props.appStore.store[storeName.home]
     return (
       <div>
         <h1>nodejs devops!</h1>
         <Link to="/oauth/login">登陆</Link>
-        <h2>{proc}</h2>
+        <h2>{JSON.stringify(data)}</h2>
       </div>
     )
   }

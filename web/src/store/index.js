@@ -1,45 +1,38 @@
 /**
- * Created by ken on 2017/4/11.
+ * Created by ken on 2017/5/5.
  */
-import {inject as injectMobx, observer} from 'mobx-react'
-const store = {}
-const registerModule = function (StoreName) {
-  if (!store[StoreName]) {
-    try {
-      const Cls = require(`store/${StoreName}`).default
-      store[StoreName] = new Cls()
-    } catch (e) {
-      console.error(e)
+import {observable, action, autorun, computed} from 'mobx'
+import {inject, observer, Provider} from 'mobx-react'
+class Store {
+  @observable store = {}
+  @action register(stores) {
+    if (typeof stores === 'object') {
+      Object.keys(stores).map(key => {
+        if (!this.store[stores[key]]) {
+          this.registerItem(stores[key])
+        }
+      })
+      return
+    }
+    if (!this.store[stores]) {
+      this.registerItem(stores)
+    }
+  }
+  @action registerItem(StoreName){
+    if (!this.store[StoreName]) {
+      try {
+        const Cls = require(`store/${StoreName}`).default
+        this.store[StoreName] = new Cls()
+      } catch (e) {
+        console.error('store/index',e)
+      }
     }
   }
 }
-
-const inject = function (...args) {
-  if (typeof args[0] === 'object') {
-    let keys = []
-    Object.keys(args[0]).map(key => {
-      if(!store[args[0][key]]){
-       registerModule(args[0][key])
-       }
-      keys.push(args[0][key])
-    })
-    return injectMobx(...keys)
-  }
-  if(!store[args[0]]){
-   registerModule(args[0])
-   }
-  return injectMobx(...args)
-}
-
-registerModule('common/menu')
-registerModule('common/member')
-registerModule('home/index')
-
-
-
+const appStore = new Store()
 export {
+  appStore,
   inject,
   observer,
-  store,
-  registerModule
+  Provider
 }
