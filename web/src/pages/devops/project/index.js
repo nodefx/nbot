@@ -11,8 +11,6 @@ const storeName = {
 export default class extends React.Component {
   componentWillMount(){
     this.props.appStore.register(storeName)
-  }
-  componentDidMount() {
     this.props.appStore.store[storeName.project].listen()
   }
   componentWillUnmount() {

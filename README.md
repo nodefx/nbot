@@ -16,7 +16,7 @@
 + `yarn start` 启动服务 后台进程(暂不支持windows) 默认端口 `1357` 
 + `yarn stop`  停止服务 
 + `yarn reload` 重启服务  
-+ `yarn dev` 启动react webpack-dev服务
++ `yarn dev` 开发环境 默认端口 `1355`
 + `yarn build` react 生成正式环境代码 
 + `yarn watch` 联机调试
 + `yarn log` 显示服务器日志

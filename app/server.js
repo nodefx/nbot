@@ -26,22 +26,10 @@ app.use(async(ctx, next) => {
   }
   await next()
 })
-/**
- * process.env.NODE_ENV
- */
-if (process.env.NODE_ENV === 'development') {
-  const webpack = require('webpack')
-  const webpackConfig = require(`${config.app.path.root}/web/webpack.config.js`)('development')
-  const compiler = webpack(webpackConfig)
 
-
-  app.use(require('koa-webpack')({compiler}))
-
-} else {
-  app.use(async(ctx) => {
-    ctx.body = await readFile(`${webpath}/index.html`)
-  })
-}
+app.use(async(ctx) => {
+  ctx.body = await readFile(`${webpath}/index.html`)
+})
 //
 const server = app.listen(config.http.port, () => {
   console.log(`listen port : ${config.http.port}`)

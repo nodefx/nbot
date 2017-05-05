@@ -3,12 +3,12 @@ import {Link} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
 const {Header, Sider, Content} = Layout
 import 'less/main.less'
-const menuConf = [
-  {name: '控制面板', link: '/', 'icon': 'desktop'},
-  {name: '项目管理', link: '/devops/project', 'icon': 'appstore'},
-  {name: '用户管理', link: '/devops/user', 'icon': 'user'},
-  {name: 'ssh管理', link: '/devops/ssh', 'icon': 'code'}
-]
+import {inject, observer} from 'store/index'
+const storeName = {
+  menu: 'common/menu'
+}
+@inject('appStore')
+@observer
 export default class extends React.Component {
   state = {
     collapsed: false
@@ -21,7 +21,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const {location, children} = this.props
+    const {location, children,appStore} = this.props
+    const menuConf = appStore.store[storeName.menu].data
     const MenuItem = menuConf.map((v) => (
       <Menu.Item key={v.link}>
         <Link to={v.link}>
@@ -64,5 +65,5 @@ export default class extends React.Component {
         </Layout>
       </Layout>
     )
-  }
+  }  d
 }
