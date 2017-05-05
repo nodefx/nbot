@@ -20,13 +20,28 @@ app.use(compress())
 app.use(bodyParser())
 app.use(favicon())
 // response
-app.use(async(ctx) => {
+app.use(async(ctx, next) => {
   if (await platform(ctx.req.headers, ctx.request.query, ctx.request.body)) {
-    ctx.body = {success: true}
-  } else {
-    ctx.body = await readFile(`${webpath}/index.html`)
+    return ctx.body = {success: true}
   }
+  await next()
 })
+/**
+ * process.env.NODE_ENV
+ */
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack')
+  const webpackConfig = require(`${config.app.path.root}/web/webpack.config.js`)('development')
+  const compiler = webpack(webpackConfig)
+
+
+  app.use(require('koa-webpack')({compiler}))
+
+} else {
+  app.use(async(ctx) => {
+    ctx.body = await readFile(`${webpath}/index.html`)
+  })
+}
 //
 const server = app.listen(config.http.port, () => {
   console.log(`listen port : ${config.http.port}`)

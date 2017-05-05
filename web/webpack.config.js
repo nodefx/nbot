@@ -85,6 +85,7 @@ module.exports = function (env) {
   } else {
     plugins.push(
       new webpack.HotModuleReplacementPlugin()
+
     )
     entryApp.unshift('react-hot-loader/patch')
   }
