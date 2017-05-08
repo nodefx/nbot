@@ -9,17 +9,21 @@ const logger = log4js.getLogger('console')
 exports.log = logger
 exports.cmd = function (action, args = [], stdout, stderr) {
   let child = spawn(action, args)
-  child.stdout.on('data', (data) => {
+  child.stdout.pipe(process.stdout)
+  child.stderr.pipe(process.stderr)
+/*  child.stdout.on('data', (data) => {
     data = data.toString().replace(/[\n\r]/g, '')
     logger.info(data)
     stdout && stdout(data)
   })
-
   child.stderr.on('data', (data) => {
     data = data.toString().replace(/[\n\r]/g, '')
-    logger.error(data)
+    logger.warn(data)
     stderr && stderr(data)
-  })
+  })*/
+  child.on('exit', function (code) {
+      logger.trace('child process exited with code ' + code);
+    })
 }
 
 exports.debugLog = function (ctx) {

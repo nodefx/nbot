@@ -28,12 +28,22 @@ module.exports = function (server) {
 
   new jwtSocket(io, (socket) => {
 
+    /**
+     * 绑定监听 与get 互用
+     * @param name 监听名称
+     * @param data 提交数据
+     */
     function bindSocket(name,data) {
       socket.on(name, () => {
         socket.emit(name, data)
       })
     }
 
+    /**
+     * 获取socket 数据 与 bind 互用
+     * @param name 监听名称
+     * @param cb  获取回调数据
+     */
     function getSocket(name,cb){
       socket.emit(name,true)
       socket.on(name, cb)
