@@ -4,13 +4,14 @@
 const {exec} = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const readline = require('readline')
 const packageConf = GetPackage()// 获取包配置
 const gitEvent = process.argv[2] // 获取git 事件变量
 function cmd(command) {
   return new Promise((resolve,reject)=>{
     const child = exec(command)
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
+    const rl = readline.createInterface(child.stdout, child.stdin)
+    rl.on('line',(d)=>{console.log(d)})
     child.on('error', function (error) {reject(error)})
     child.on('exit', function (code) {resolve(code)})
   })

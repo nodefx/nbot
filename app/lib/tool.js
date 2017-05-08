@@ -7,23 +7,22 @@ const log4js = require('log4js')
 log4js.configure({appenders: [{type: 'console'}], replaceConsole: true})
 const logger = log4js.getLogger('console')
 exports.log = logger
+const readline = require('readline')
 exports.cmd = function (action, args = [], stdout, stderr) {
   let child = spawn(action, args)
-  child.stdout.pipe(process.stdout)
-  child.stderr.pipe(process.stderr)
-/*  child.stdout.on('data', (data) => {
-    data = data.toString().replace(/[\n\r]/g, '')
-    logger.info(data)
-    stdout && stdout(data)
+  const rl = readline.createInterface(child.stdout, child.stdin)
+  rl.on('line', (d) => {
+    logger.info(d)
+  })
+  child.stdout.on('data', (data) => {
+    stdout && stdout(data.toString())
   })
   child.stderr.on('data', (data) => {
-    data = data.toString().replace(/[\n\r]/g, '')
-    logger.warn(data)
-    stderr && stderr(data)
-  })*/
+    stderr && stderr(data.toString())
+  })
   child.on('exit', function (code) {
-      logger.trace('child process exited with code ' + code);
-    })
+    logger.trace('child process exited with code ' + code);
+  })
 }
 
 exports.debugLog = function (ctx) {

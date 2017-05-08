@@ -5,9 +5,8 @@ const fs = require('fs')
 const db = require('../lib/database')
 const {cmd} = require('../lib/tool')
 
-module.exports = async function (header = {}, get = {}, post = {}) {
-  let gitEvent = Object.assign({}, header, get, post)
-  switch (header['x-coding-event']) {
+module.exports = async function (gitEvent) {
+  switch (gitEvent['x-coding-event']) {
     case 'push':
       await gitpush(gitEvent)
       break
