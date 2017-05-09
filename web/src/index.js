@@ -15,7 +15,6 @@ const render = Component => {
 }
 
 render(App)
-
 if (module.hot) {
   module.hot.accept('pages/app', () => {
     console.log('hot reload', Date.now(), process.env.NODE_ENV)

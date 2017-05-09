@@ -1,6 +1,6 @@
 {
   "main": "index.js",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "scripts": {
     "start": "node ./app/start.js",
     "stop": "node ./app/stop.js",
