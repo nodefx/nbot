@@ -18,7 +18,7 @@
 + `yarn reload` 重启服务
 + `yarn web` 启动web服务 默认端口 `1355`
 + `yarn server` 服务端开发环境 默认端口 `1357`
-+ `yarn dev` web & 服务端开发环境 默认端口 `1355` & `1357`
++ `yarn dev` web 与 服务端开发环境 默认端口 `1355` & `1357`
 + `yarn build` react 生成正式环境代码 
 + `yarn watch` 联机调试
 + `yarn log` 显示服务器日志
