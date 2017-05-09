@@ -22,7 +22,6 @@ if (module.hot) {
     render(App)
   })
 }
-
 function rootKeys() {
   if (process.env.NODE_ENV === 'development') {
     return Math.random()
