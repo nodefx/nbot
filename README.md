@@ -3,7 +3,7 @@
 项目构建自动化管理平台 [Road Map](https://github.com/nodenext/nbot/blob/master/document/roadmap.md "road map")
 项目开发保持嵌入式的原则，不依赖任何第三方数据库或者redis等模块
 项目使用cluster模式运行: 1 master 1 worker 方式共享内存
-所有通讯基于websocket进行
+
 
 ## base on
 + nodejs 7.6+
