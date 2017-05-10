@@ -17,7 +17,7 @@ const db = {
 module.exports = db
 
 function toPromise(o) {
-  const wl = ['insert', 'find', 'update', 'findOne', 'remove']
+  const wl = ['insert', 'find', 'update', 'findOne', 'remove','count']
   Object.getOwnPropertyNames(o.__proto__).map((key) => {
     if (wl.indexOf(key) > -1) {
       o[key + 'Async'] = promisify(o[key], o)

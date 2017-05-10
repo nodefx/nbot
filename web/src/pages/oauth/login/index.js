@@ -11,36 +11,54 @@ const storeName = {
   member: 'common/member',
   menu: 'common/menu'
 }
+
+@create()
 @inject('appStore')
 @observer
-@create({})
 export default class extends React.Component {
 
-  render() {
+
+
+  handleOk() {
     const {validateFieldsAndScroll} = this.props.form
-
-    function handleOk() {
-      validateFieldsAndScroll((errors, values) => {
-        if (errors) {
-          console.log('errors', errors)
-        }
-      })
-    }
-
+    const {store} = this.props.appStore
+    validateFieldsAndScroll((errors, values) => {
+      if (errors) {
+        return console.log('errors', errors)
+      }
+      console.log('handleOk')
+      store[storeName.member].login(values)
+    })
+  }
+  render() {
+    const {getFieldDecorator} = this.props.form
+    const {member,loading} = this.props.appStore.store[storeName.member]
     return (
       <div className={styles.form}>
         <div className={styles.logo}>
-          Nbot
+          Nbot {loading}
         </div>
         <form>
-          <Item>
-            <Input size="large" onPressEnter={handleOk} placeholder="账号"/>
+          <Item hasFeedback>
+            {getFieldDecorator('passport', {
+              rules: [
+                {required: true,message:'账号必填!'}
+              ],
+              initialValue:member.passport
+            })
+            (<Input size="large" onPressEnter={this.handleOk.bind(this)} placeholder="账号" />)}
           </Item>
-          <Item>
-            <Input size="large" type="password" onPressEnter={handleOk} placeholder="密码"/>
+          <Item hasFeedback>
+            {getFieldDecorator('password', {
+              rules: [
+                {required: true,message:'密码必填!'},
+              ],
+              initialValue:member.password
+            })
+            (<Input size="large" type="password" onPressEnter={this.handleOk.bind(this)} placeholder="密码" />)}
           </Item>
           <Row>
-            <Button type="primary" size="large">
+            <Button type="primary" size="large" loading={loading} onClick={this.handleOk.bind(this)}>
               登陆
             </Button>
             <p>
