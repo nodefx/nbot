@@ -7,8 +7,13 @@ class jwtSocket {
   constructor(io, fn) {
     this.member = {}
     try {
-      io.on('connection', this.jwt())
-      io.on('auth', this.auth(fn))
+      //io.on('connection', this.jwt())
+      //io.on('auth', this.auth(fn))
+
+      io.on('connection', (socket) => {
+        socket.emit('connetion','connetion success')
+        fn.call(this,socket)
+      })
     } catch (e) {
       this.LOG.error(e)
     }
@@ -19,6 +24,7 @@ class jwtSocket {
    * @returns {function()}
    */
   jwt() {
+    this.member = {}
     return async(socket) => {
       try {
         // 客户端鉴权

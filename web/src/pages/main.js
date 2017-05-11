@@ -16,6 +16,10 @@ export default class extends React.Component {
     collapsed: false
   }
 
+  componentWillReceiveProps(){
+    console.log('componentWillReceiveProps')
+  }
+
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed
