@@ -12,14 +12,21 @@ module.exports = function (socket) {
 
   //定时任务
   let t = {}
-  t = setInterval(() => {
-    socket.emit('home.index.system', getSystem())
-  }, 3000)
-  socket.on('disconnect', () => {
+
+  //实时监听
+  socket.lset('home.index.system', getSystem())
+
+  socket.on('home.index.system.setInterval',()=>{
+    t = setInterval(() => {
+      socket.emit('home.index.system', getSystem())
+    }, 3000)
+  })
+
+  socket.on('home.index.system.clearInterval',()=>{
     clearInterval(t)
   })
-  //实时监听
-  socket.on('home.index.system', (d) => {
-    socket.emit('home.index.system', getSystem())
+
+  socket.on('disconnect', () => {
+    clearInterval(t)
   })
 }

@@ -70,7 +70,7 @@ export default class extends React.Component {
             />
             <div className="rightbox">
               <div className="button">
-                <Icon type="mail" />
+                {/*<Icon type="mail" />*/}
               </div>
               <Menu mode="horizontal" onClick={handleClickMenu}>
                 <MenuSubMenu style={{

@@ -2,12 +2,12 @@
  * Created by ken on 2017/5/5.
  */
 import {observable, action, autorun, computed} from 'mobx'
-import {socket,getSocket} from 'socket/index'
+import {socket} from 'socket/index'
 export default class {
   @observable data = {}
 
   @action listen() {
-    getSocket('devops.project.index', (d) => {
+    socket.lget('devops.project.index', (d) => {
       this.data = d
     })
   }

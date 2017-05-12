@@ -7,11 +7,14 @@ export default class {
   @observable data = {}
 
   @action listen() {
-    getSocket('home.index.system', (d) => {
+    socket.emit('home.index.system.setInterval',true)
+    socket.lget('home.index.system', (d) => {
       this.data = d
     })
   }
   @action removeListen() {
+    socket.emit('home.index.system.clearInterval',true)
     socket.removeListener('home.index.system')
+    this.data = {}
   }
 }

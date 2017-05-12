@@ -2,7 +2,7 @@
  * Created by ken on 2017/5/4.
  */
 const db = requireRoot('app/lib/database')
-const {sign} = requireRoot('app/socket/bootstrap/jwt')
+const {sign} = requireRoot('app/lib/jwt')
 module.exports = function (socket) {
 
 

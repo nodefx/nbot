@@ -4,10 +4,13 @@
 const fs = require('fs')
 const config = requireRoot('app/config')
 const {log} = requireRoot('app/lib/tool')
-const jwtSocket = require('./bootstrap/socket')
 const moment = require('moment')
+const {verify, sign} = requireRoot('app/lib/jwt')
 let fileList = []
 let runList = {}
+let whiteList = [
+  `${config.app.path.root}/app/socket/api/oauth/member`
+]
 /**
  * 遍历目录
  * @param path
@@ -23,43 +26,53 @@ function walk(path) {
   })
 }
 
+
 module.exports = function (server) {
   const io = require('socket.io').listen(server, {origins: '*:*', transports: ['websocket', 'polling']})
+  io.on('connection', (socket) => {
+    socket.lget = (name, cb) => {
+      socket.emit(name, true)
+      socket.on(name, cb)
+    }
 
-  new jwtSocket(io, (socket) => {
-
-    /**
-     * 绑定监听 与get 互用
-     * @param name 监听名称
-     * @param data 提交数据
-     */
-    function bindSocket(name,data) {
+    socket.lset = (name, data) => {
+      socket.emit(name, data)
       socket.on(name, () => {
         socket.emit(name, data)
       })
     }
+    socket.emit('connetion', 'connetion success')
+    //白名单模块
+    whiteList.map((v) => {
+      runMod(v, socket)
+    })
+    //授权监听
+    socket.on('jwtToken', async(token) => {
+      this.member = verify(token) || false
+      this.member.sid = socket.id
+      if (this.member) {
+        mods.call(this, socket)
+      }
+      socket.emit('jwt', this.member)
+    })
 
-    /**
-     * 获取socket 数据 与 bind 互用
-     * @param name 监听名称
-     * @param cb  获取回调数据
-     */
-    function getSocket(name,cb){
-      socket.emit(name,true)
-      socket.on(name, cb)
+  })
+}
+
+function runMod(path, socket) {
+  const socketMod = require(path)
+  if (typeof socketMod === 'function') {
+    socketMod.call(this, socket)
+    log.trace('执行socket api 模块 :', path, moment().format('YYYY-MM-DD HH:mm:ss'))
+  }
+}
+
+function mods(socket) {
+  //编译api层 通用模块
+  walk(`${config.app.path.root}/app/socket/api`)
+  fileList.map(v => {
+    if ((!runList[v] && whiteList.indexOf(v) === -1)) {
+      runMod.call(this, v, socket)
     }
-
-    walk(`${config.app.path.root}/app/socket/api`)
-    fileList.map(v => {
-      if (!runList[v]) {
-        runList[v] = require(v)
-      }
-    })
-    Object.keys(runList).map((key) => {
-      if (typeof runList[key] === 'function') {
-        runList[key](socket,bindSocket,getSocket)
-        log.trace('执行socket api 模块 :', key, moment().format('YYYY-MM-DD HH:mm:ss'))
-      }
-    })
   })
 }
