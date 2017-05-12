@@ -6,20 +6,18 @@ const config = requireRoot('app/config')
 const {log} = requireRoot('app/lib/tool')
 const moment = require('moment')
 const {verify, sign} = requireRoot('app/lib/jwt')
-let fileList = []
-let runList = {}
 let whiteList = [
-  `${config.app.path.root}/app/socket/api/oauth/member`
+  `${config.app.path.root}/app/socket/api/oauth/member.js`
 ]
 /**
  * 遍历目录
  * @param path
  */
-function walk(path) {
+function walk(path, fileList) {
   let dirList = fs.readdirSync(path)
   dirList.forEach(function (item) {
     if (fs.statSync(path + '/' + item).isDirectory()) {
-      walk(path + '/' + item)
+      walk(path + '/' + item, fileList)
     } else {
       fileList.push(path + '/' + item)
     }
@@ -68,8 +66,10 @@ function runMod(path, socket) {
 }
 
 function mods(socket) {
+  let fileList = []
+  let runList = {}
   //编译api层 通用模块
-  walk(`${config.app.path.root}/app/socket/api`)
+  walk(`${config.app.path.root}/app/socket/api`, fileList)
   fileList.map(v => {
     if ((!runList[v] && whiteList.indexOf(v) === -1)) {
       runMod.call(this, v, socket)

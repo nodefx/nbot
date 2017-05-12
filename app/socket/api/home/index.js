@@ -15,18 +15,22 @@ module.exports = function (socket) {
 
   //实时监听
   socket.lset('home.index.system', getSystem())
-
-  socket.on('home.index.system.setInterval',()=>{
+  let i = 0
+  socket.lget('home.index.system.setInterval', () => {
+    console.log('home.index.system.setInterval')
     t = setInterval(() => {
+      console.log('home.index.system.setInterval', i++)
       socket.emit('home.index.system', getSystem())
     }, 3000)
   })
 
-  socket.on('home.index.system.clearInterval',()=>{
+  socket.on('home.index.system.clearInterval', () => {
+    console.log('home.index.system.clearInterval')
     clearInterval(t)
   })
 
   socket.on('disconnect', () => {
+    console.log('disconnect')
     clearInterval(t)
   })
 }
