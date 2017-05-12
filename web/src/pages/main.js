@@ -6,8 +6,10 @@ const MenuItem = Menu.Item
 const MenuSubMenu = Menu.SubMenu
 import 'less/main.less'
 import {inject, observer} from 'store/index'
+import {whiteList} from 'pages/oauth'
 const storeName = {
-  menu: 'common/menu'
+  menu: 'common/menu',
+  member:'common/member'
 }
 @inject('appStore')
 @observer
@@ -16,9 +18,6 @@ export default class extends React.Component {
     collapsed: false
   }
 
-  componentWillReceiveProps(){
-    console.log('componentWillReceiveProps')
-  }
 
   toggle = () => {
     this.setState({
@@ -26,13 +25,12 @@ export default class extends React.Component {
     })
   }
 
-  handleClickMenu(){
-
-  }
 
   render() {
     const {location, children,appStore} = this.props
     const {data} = appStore.store[storeName.menu]
+    const {member} = appStore.store[storeName.member]
+
     const NaviMenu = data.map((v) => (
       <MenuItem key={v.link}>
         <Link to={v.link}>
@@ -42,11 +40,13 @@ export default class extends React.Component {
       </MenuItem>
     ))
 
-    if (['/oauth/login'].indexOf(location.pathname) > -1) {
-      return <div>{children}</div>
+    function handleClickMenu(){
+      appStore.store[storeName.member].logout()
     }
 
-    return (
+    return(whiteList.indexOf(location.pathname) > -1)?
+      (<div>{children}</div>):
+      (
       <Layout>
         <Sider
           trigger={null}
@@ -69,14 +69,18 @@ export default class extends React.Component {
               onClick={this.toggle}
             />
             <div className="rightbox">
-              <Menu mode="horizontal" onClick={this.handleClickMenu}>
+              <div className="button">
+                <Icon type="mail" />
+              </div>
+              <Menu mode="horizontal" onClick={handleClickMenu}>
                 <MenuSubMenu style={{
                   float: 'right',
-                }} title={< span > <Icon type="user" /></span>}
+                }} title={<span> <Icon type="user" />
+                  {member.passport} </span>}
                 >
-                  <MenuItem key="logout">
+                  <Menu.Item key="logout">
                     退出
-                  </MenuItem>
+                  </Menu.Item>
                 </MenuSubMenu>
               </Menu>
             </div>
@@ -87,5 +91,5 @@ export default class extends React.Component {
         </Layout>
       </Layout>
     )
-  }  d
+  }
 }

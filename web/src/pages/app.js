@@ -10,7 +10,7 @@ appStore.register('common/member')
 //
 export default class App extends React.Component {
   render() {
-    const devTool = (process.env.NODE_ENV !== 'production') && <DevTools />
+    const devTool = (process.env.NODE_ENV == 'production') && <DevTools />
     return (
       <Provider appStore={appStore}>
         <div>

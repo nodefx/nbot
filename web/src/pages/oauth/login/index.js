@@ -36,7 +36,7 @@ export default class extends React.Component {
     return (
       <div className={styles.form}>
         <div className={styles.logo}>
-          Nbot {loading}
+          Nbot
         </div>
         <form>
           <Item hasFeedback>

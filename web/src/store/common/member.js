@@ -4,9 +4,12 @@
 import {message} from 'antd';
 import {socket,getSocket,getOnceSockdt} from 'socket/index'
 import {observable, action, autorun, computed} from 'mobx'
-let i = 0
+import localstorage from 'plugin/localstorage'
+import { browserHistory } from 'react-router'
+const localMember = localstorage.get('member')
+console.log('localMember',localMember)
 export default class {
-  @observable member = {
+  @observable member = (Object.keys(localMember).length>0)?localMember:{
     passport: '',
     password: ''
   }
@@ -15,15 +18,15 @@ export default class {
 
   @action login(member) {
     this.loading = true
-    console.log('member login',i++)
     socket.emit('oauth.member.login',member)
     socket.once('oauth.member.login',(d)=>{
-      console.log(d)
       this.loading = false
       const {msg,code,data} = d
       if(code==0){
         message.success(msg)
         this.member = data
+        localstorage.set('member',data)
+        browserHistory.push('/')
       }else {
         message.error(msg)
       }
@@ -31,6 +34,8 @@ export default class {
   }
 
   @action logout() {
-
+    localstorage.remove('member')
+    this.member = {}
+    browserHistory.push('/oauth/login')
   }
 }

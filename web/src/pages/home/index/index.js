@@ -23,7 +23,6 @@ export default class extends React.Component {
     return (
       <div>
         <h1>nodejs devops!</h1>
-        <Link to="/oauth/login">登陆</Link>
         <h2>{JSON.stringify(data)}</h2>
       </div>
     )

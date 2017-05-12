@@ -11,7 +11,7 @@ export default {
     return storage.setItem(name, value)
   },
   get(name) {
-    let data = storage.getItem(name)
+    let data = storage.getItem(name)||`{}`
     try {
       data = JSON.parse(data)
     } catch (e) {

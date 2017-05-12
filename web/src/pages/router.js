@@ -1,5 +1,6 @@
 import main from 'pages/main'
 import nomatch from 'pages/nomatch'
+import oauth from 'pages/oauth'
 function errorLoading(cb) {
   return (err) => {
     console.error(err)
@@ -27,6 +28,7 @@ export default function createRoutes() {
   return {
     path: '/',
     component: main,
+    onEnter:oauth,
     indexRoute: {
       getComponent: loadComponent('home/index')
     },
