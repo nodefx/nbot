@@ -72,7 +72,9 @@ export default class extends React.Component {
               <div className="button">
                 {/*<Icon type="mail" />*/}
               </div>
-              <Menu mode="horizontal" onClick={handleClickMenu}>
+              <Menu
+                mode="horizontal"
+                onClick={handleClickMenu}>
                 <MenuSubMenu style={{
                   float: 'right',
                 }} title={<span> <Icon type="user" />

@@ -6,15 +6,16 @@ const {sign} = requireRoot('app/lib/jwt')
 module.exports = function (socket) {
 
 
-  socket.on('oauth.member.login',async(d)=>{
-    const {passport,password} = d
-    let member = await db.model('member').findOneAsync({passport,password})
-    if(member&&member.passport){
+  socket.on('oauth.member.login', async(d) => {
+    const {passport, password} = d
+    let member = await db.model('member').findOneAsync({passport, password})
+    if (member && member.passport) {
       delete member.password
       member.token = sign(member)
-      socket.emit('oauth.member.login',{code:0,msg:'登陆成功',data:member})
-    }else{
-      socket.emit('oauth.member.login',{code:1,msg:'登陆失败',data:{}})
+      await db.model('member').updateAsync({passport}, {$set: {updateAt: new Date()}}, {})
+      socket.emit('oauth.member.login', {code: 0, msg: '登陆成功', data: member})
+    } else {
+      socket.emit('oauth.member.login', {code: 1, msg: '登陆失败', data: {}})
     }
   })
 }
