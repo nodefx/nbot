@@ -57,22 +57,24 @@ module.exports = function (server) {
   })
 }
 
+
+let fileListCache = []
+function mods(socket) {
+  if (fileListCache.length === 0) {
+    //编译api层 通用模块
+    walk(`${config.app.path.root}/app/socket/api`, fileListCache)
+  }
+  fileListCache.map(v => {
+    if (whiteList.indexOf(v) === -1) {
+      runMod.call(this, v, socket)
+    }
+  })
+}
+
 function runMod(path, socket) {
   const socketMod = require(path)
   if (typeof socketMod === 'function') {
     socketMod.call(this, socket)
     log.trace('执行socket api 模块 :', path, moment().format('YYYY-MM-DD HH:mm:ss'))
   }
-}
-
-function mods(socket) {
-  let fileList = []
-  let runList = {}
-  //编译api层 通用模块
-  walk(`${config.app.path.root}/app/socket/api`, fileList)
-  fileList.map(v => {
-    if ((!runList[v] && whiteList.indexOf(v) === -1)) {
-      runMod.call(this, v, socket)
-    }
-  })
 }

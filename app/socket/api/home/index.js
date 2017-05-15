@@ -1,6 +1,7 @@
 /**
  * Created by ken on 2017/5/4.
  */
+let Interval = 0
 module.exports = function (socket) {
 
   function getSystem() {
@@ -17,20 +18,25 @@ module.exports = function (socket) {
   socket.lset('home.index.system', getSystem())
   let i = 0
   socket.lget('home.index.system.setInterval', () => {
-    console.log('home.index.system.setInterval')
-    t = setInterval(() => {
-      console.log('home.index.system.setInterval', i++)
-      socket.emit('home.index.system', getSystem())
-    }, 3000)
+    console.log('home.index.system.setInterval.init',Interval)
+    if(Interval===0) {
+      t = setInterval(() => {
+        console.log('home.index.system.setInterval', i++, process.pid,Interval)
+        socket.emit('home.index.system', getSystem())
+      }, 3000)
+      Interval++
+    }
   })
 
   socket.on('home.index.system.clearInterval', () => {
-    console.log('home.index.system.clearInterval')
+    console.log('home.index.system.clearInterval',Interval)
     clearInterval(t)
+    Interval = 0
   })
 
   socket.on('disconnect', () => {
-    console.log('disconnect')
+    console.log('disconnect home.index.system.clearInterval',Interval)
     clearInterval(t)
+    Interval = 0
   })
 }

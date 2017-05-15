@@ -25,7 +25,7 @@ export default class {
         message.success(msg)
         this.member = data
         localstorage.set('member',data)
-        //socket.emit('jwtToken', data.token)
+        socket.emit('jwtToken', data.token)
         browserHistory.push('/')
       }else {
         message.error(msg)
