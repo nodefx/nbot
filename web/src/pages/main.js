@@ -31,14 +31,6 @@ export default class extends React.Component {
     const {data} = appStore.store[storeName.menu]
     const {member} = appStore.store[storeName.member]
 
-    const NaviMenu = data.map((v) => (
-      <MenuItem key={v.link}>
-        <Link to={v.link}>
-          <Icon type={v.icon}/>
-          <span className="nav-text">{v.name}</span>
-        </Link>
-      </MenuItem>
-    ))
 
     function handleClickMenu(){
       appStore.store[storeName.member].logout()
@@ -58,7 +50,14 @@ export default class extends React.Component {
             {!this.state.collapsed && `Nbot`}
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
-            {NaviMenu}
+            {data.map((v) => (
+              <MenuItem key={v.link}>
+                <Link to={v.link}>
+                  <Icon type={v.icon}/>
+                  <span className="nav-text">{v.name}</span>
+                </Link>
+              </MenuItem>
+            ))}
           </Menu>
         </Sider>
         <Layout>

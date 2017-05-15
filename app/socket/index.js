@@ -28,11 +28,21 @@ function walk(path, fileList) {
 module.exports = function (server) {
   const io = require('socket.io').listen(server, {origins: '*:*', transports: ['websocket', 'polling']})
   io.on('connection', (socket) => {
+    /**
+     * 根据主键通知服务器请求 并监听获取数据
+     * @param name
+     * @param cb
+     */
     socket.lget = (name, cb) => {
       socket.emit(name, true)
       socket.on(name, cb)
     }
 
+    /**
+     * 与lget互用 根据请求监听数据
+     * @param name
+     * @param data
+     */
     socket.lset = (name, data) => {
       socket.emit(name, data)
       socket.on(name, () => {
@@ -46,12 +56,13 @@ module.exports = function (server) {
     })
     //授权监听
     socket.on('jwtToken', async(token) => {
-      this.member = verify(token) || false
-      this.member.sid = socket.id
-      if (this.member) {
-        mods.call(this, socket)
+      socket.member = verify(token) || false
+      log.debug('jwtToken',socket.member)
+      if (socket.member) {
+        socket.member.sid = socket.id
+        mods(socket)
       }
-      socket.emit('jwt', this.member)
+      socket.emit('jwt', socket.member)
     })
 
   })
@@ -66,7 +77,7 @@ function mods(socket) {
   }
   fileListCache.map(v => {
     if (whiteList.indexOf(v) === -1) {
-      runMod.call(this, v, socket)
+      runMod(v, socket)
     }
   })
 }
@@ -74,7 +85,8 @@ function mods(socket) {
 function runMod(path, socket) {
   const socketMod = require(path)
   if (typeof socketMod === 'function') {
-    socketMod.call(this, socket)
+    new socketMod(socket)
+    //socketMod.call(this, socket)
     log.trace('执行socket api 模块 :', path, moment().format('YYYY-MM-DD HH:mm:ss'))
   }
 }
