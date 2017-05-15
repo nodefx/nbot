@@ -15,7 +15,7 @@ module.exports = class {
   constructor(socket) {
     //定时任务
     let t = {}
-    console.log('home index',this)
+    console.log('home index', this)
 
     //实时监听
     socket.lset('home.index.system', getSystem())
