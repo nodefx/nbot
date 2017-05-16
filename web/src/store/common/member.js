@@ -16,10 +16,11 @@ export default class {
   @observable memberList = []
   @observable state = {
     loading:false,
-    formadd:false,
+    modal:false,
     formitem:{},
     confirmLoading:false,
-    modalTitle:'创建用户'
+    modalTitle:'',
+    method:''
   }
   enumRole = {
     '1':`超级管理员`,
@@ -60,7 +61,39 @@ export default class {
     })
   }
   @action changeState(o={}){
+    console.log(JSON.stringify(o))
     this.state = Object.assign(this.state,o)
+  }
+
+  @action postUser(member){
+    this.state.confirmLoading = true
+    const cat = `member.index.${this.state.method}`
+    socket.emit(cat,member)
+    socket.once(cat, (d) => {
+      const {code,data,msg} = d
+      if(code===0) {
+        message.success(msg)
+        this.getMembers()
+        this.state.confirmLoading = false
+        this.state.modal = false
+      }else{
+        message.error(msg)
+        this.state.confirmLoading = false
+      }
+    })
+  }
+  @action removeUser(id){
+    const cat = `member.index.del`
+    socket.emit(cat,{id})
+    socket.once(cat, (d) => {
+      const {code,data,msg} = d
+      if(code===0) {
+        message.success(msg)
+        this.getMembers()
+      }else{
+        message.error(msg)
+      }
+    })
   }
 
 }

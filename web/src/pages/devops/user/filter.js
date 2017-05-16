@@ -21,7 +21,7 @@ const TwoColProps = {
 @observer
 export default class extends React.Component {
   addMember() {
-    this.props.store.changeState({formadd: true,formitem:{}})
+    this.props.store.changeState({modal: true,formitem:{},method:'add',modalTitle:'创建用户'})
   }
   render() {
     //const {getFieldDecorator} = this.props.form

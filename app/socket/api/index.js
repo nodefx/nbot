@@ -11,10 +11,11 @@ module.exports = class {
     let cat = path.replace(`${config.app.path.root}/app/socket/api/`, '').replace('.js', '').replace('/', '.')
     Object.getOwnPropertyNames(clsPrototype).map((fn) => {
       if ('function' === typeof this[fn] && wl.indexOf(fn) === -1) {
-        cat = `${cat}.${fn}`
-        socket.on(cat, async(d) => {
+        const catName = `${cat}.${fn}`
+        log.debug('catogory',catName)
+        socket.on(catName, async(d) => {
           try {
-            await this[fn](d, cat)
+            await this[fn](d, catName)
           } catch (e) {
             log.error(e)
           }

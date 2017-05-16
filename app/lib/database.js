@@ -3,6 +3,7 @@
  * https://github.com/louischatriot/nedb
  */
 const Datastore = require('nedb')
+const {log} = require('./tool')
 const config = require('../config')
 let cacheDb = {}
 const db = {
@@ -31,6 +32,6 @@ let promisify = (fn, receiver) => {
       fn.apply(receiver, [...args, (err, res) => {
         return err ? reject(err) : resolve(res)
       }])
-    })
+    }).catch((e)=>log.error(e))
   }
 }

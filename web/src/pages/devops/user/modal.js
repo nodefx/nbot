@@ -13,11 +13,14 @@ const formItemLayout = {
 @create()
 @observer
 export default class extends React.Component {
+
   handleCancel() {
-    this.props.store.changeState({formadd: false})
+    this.props.store.changeState({modal: false})
+    this.props.form.resetFields()
   }
 
   handleOk() {
+    const {formitem,method} = this.props.store.state
     const {
       validateFieldsAndScroll
     } = this.props.form
@@ -25,8 +28,9 @@ export default class extends React.Component {
       if (errors) {
         return console.log('errors', errors)
       }
-      console.log('handleOk', values)
-      this.props.store.changeState({confirmLoading: true})
+      if(method=='update')values._id = formitem._id
+      this.props.store.postUser(values)
+      this.props.form.resetFields()
 
     })
   }
@@ -34,9 +38,11 @@ export default class extends React.Component {
   render() {
     const {state, enumRole} = this.props.store
     const {getFieldDecorator} = this.props.form
+    const formitem = state.formitem
+
     return (
       <Modal
-        visible={state.formadd}
+        visible={state.modal}
         onOk={this.handleOk.bind(this)}
         onCancel={this.handleCancel.bind(this)}
         confirmLoading={state.confirmLoading}
@@ -48,25 +54,25 @@ export default class extends React.Component {
               rules: [
                 {required: true, message: '账号必填!'}
               ],
-              initialValue: state.formitem.passport || ''
+              initialValue: formitem.passport
             })
             (<Input  />)}
           </Item>
-          <Item label="密码" {...formItemLayout} hasFeedback>
+          {(<Item label="密码" {...formItemLayout} hasFeedback>
             {getFieldDecorator('password', {
               rules: [
                 {required: true, message: '密码必填!'},
               ],
-              initialValue: state.formitem.password || ''
+              initialValue: formitem.password
             })
             (<Input type="password"/>)}
-          </Item>
+          </Item>)}
           <Item label="角色" {...formItemLayout} hasFeedback>
             {getFieldDecorator('role', {
               rules: [
                 {required: true, message: '角色必填!'},
               ],
-              initialValue: state.formitem.role && state.formitem.role.toString() || '0'
+              initialValue: formitem.role
             })
             (<Radio.Group>
               {Object.keys(enumRole).map((key) => (<Radio.Button value={key}>{enumRole[key]}</Radio.Button>))}
