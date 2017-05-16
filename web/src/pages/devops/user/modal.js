@@ -72,7 +72,7 @@ export default class extends React.Component {
               rules: [
                 {required: true, message: '角色必填!'},
               ],
-              initialValue: formitem.role.toString()
+              initialValue: formitem.role && formitem.role.toString()
             })
             (<Radio.Group>
               {Object.keys(enumRole).map((key) => (<Radio.Button value={key}>{enumRole[key]}</Radio.Button>))}
