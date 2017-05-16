@@ -10,3 +10,8 @@ module.exports = ()=>{
 
   initMember(config)
 }
+
+global.moment = require('moment')
+moment.locale('zh-cn')
+
+

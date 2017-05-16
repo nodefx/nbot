@@ -24,6 +24,31 @@
 + `yarn watch` 联机调试
 + `yarn log` 显示服务器日志
 
+## socket api 架构
+传统的api 架构:
+```
+socket.on('member.index.list', async(d) => {
+  let members = await db.model('member').findAsync({})
+  members.map((v) => {
+    v.updateAt = moment(v.updateAt).fromNow()
+    v.createAt = moment(v.createAt).fromNow()
+  })
+  socket.emit('member.index.list', {code: 0, msg: '', data: members})
+})
+```
+新socket api的开发方式为
+```
+async list(data,cat){
+    let members = await db.model('member').findAsync({})
+    members.map((v) => {
+      v.updateAt = moment(v.updateAt).fromNow()
+      v.createAt = moment(v.createAt).fromNow()
+    })
+    this.success(cat,members)
+}
+```
+根据约定大于配置的方式把api简化开发,客户端调用为 `socket.on('home.index.index',cb)` or `socket.emit('home.index.index',data)`
+
 ## 二次开发模式建议
 1. 验证UI与api之间的联调，可以执行 `yarn dev` 或者 `yarn dev && yarn server`
 2. 双开发模式建议下载一个 nodemon,然后执行 `yarn dev` & `nodemon ./app/server`

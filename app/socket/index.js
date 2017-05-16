@@ -57,7 +57,7 @@ module.exports = function (server) {
     //授权监听
     socket.on('jwtToken', async(token) => {
       socket.member = verify(token) || false
-      log.debug('jwtToken',socket.member)
+      log.debug('jwtToken', JSON.stringify(socket.member))
       if (socket.member) {
         socket.member.sid = socket.id
         mods(socket)
@@ -85,8 +85,7 @@ function mods(socket) {
 function runMod(path, socket) {
   const socketMod = require(path)
   if (typeof socketMod === 'function') {
-    new socketMod(socket)
-    //socketMod.call(this, socket)
+    new socketMod(socket,path,socketMod.prototype)
     log.trace('执行socket api 模块 :', path, moment().format('YYYY-MM-DD HH:mm:ss'))
   }
 }
