@@ -5,10 +5,6 @@ import React from 'react'
 import {inject, observer} from 'store/index'
 import {Table, Row, Col, Form, Button} from 'antd'
 const {create} = Form
-const storeName = {
-  member: 'common/member'
-}
-
 const ColProps = {
   xs: 24,
   sm: 12,
@@ -22,20 +18,11 @@ const TwoColProps = {
 }
 
 @create()
-@inject('appStore')
 @observer
 export default class extends React.Component {
-
-  componentWillMount() {
-    this.memberStore = this.props.appStore.store[storeName.member]
-
-  }
-
   addMember() {
-    this.memberStore.changeState({formadd: true})
+    this.props.store.changeState({formadd: true,formitem:{}})
   }
-
-
   render() {
     //const {getFieldDecorator} = this.props.form
     return (

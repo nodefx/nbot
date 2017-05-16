@@ -3,30 +3,19 @@
  */
 import React from 'react'
 import {inject, observer} from 'store/index'
-import {Modal, Row, Col, Form, Button, Input, InputNumber,Radio} from 'antd'
+import {Modal, Row, Col, Form, Button, Input, InputNumber, Radio} from 'antd'
 const {create, Item} = Form
-const storeName = {
-  member: 'common/member'
-}
 const formItemLayout = {
   labelCol: {span: 4},
   wrapperCol: {span: 18},
 }
 
 @create()
-@inject('appStore')
 @observer
 export default class extends React.Component {
-
-  componentWillMount() {
-    this.memberStore = this.props.appStore.store[storeName.member]
-
-  }
-
   handleCancel() {
-    this.memberStore.changeState({formadd: false})
+    this.props.store.changeState({formadd: false})
   }
-
 
   handleOk() {
     const {
@@ -37,13 +26,13 @@ export default class extends React.Component {
         return console.log('errors', errors)
       }
       console.log('handleOk', values)
-      this.memberStore.changeState({confirmLoading:true})
+      this.props.store.changeState({confirmLoading: true})
 
     })
   }
 
   render() {
-    const {state,enumRole} = this.memberStore
+    const {state, enumRole} = this.props.store
     const {getFieldDecorator} = this.props.form
     return (
       <Modal
@@ -59,7 +48,7 @@ export default class extends React.Component {
               rules: [
                 {required: true, message: '账号必填!'}
               ],
-              initialValue: state.formitem.passport||''
+              initialValue: state.formitem.passport || ''
             })
             (<Input  />)}
           </Item>
@@ -68,19 +57,19 @@ export default class extends React.Component {
               rules: [
                 {required: true, message: '密码必填!'},
               ],
-              initialValue: state.formitem.password||''
+              initialValue: state.formitem.password || ''
             })
-            (<Input type="password" />)}
+            (<Input type="password"/>)}
           </Item>
           <Item label="角色" {...formItemLayout} hasFeedback>
             {getFieldDecorator('role', {
               rules: [
                 {required: true, message: '角色必填!'},
               ],
-              initialValue: state.formitem.role&&state.formitem.role.toString()||'0'
+              initialValue: state.formitem.role && state.formitem.role.toString() || '0'
             })
             (<Radio.Group>
-              {Object.keys(enumRole).map((key)=>(<Radio.Button value={key}>{enumRole[key]}</Radio.Button>))}
+              {Object.keys(enumRole).map((key) => (<Radio.Button value={key}>{enumRole[key]}</Radio.Button>))}
             </Radio.Group>)}
           </Item>
         </Form>
