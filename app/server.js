@@ -15,8 +15,8 @@ const platform = requireRoot('app/platform/index')
 const {readFile} = requireRoot('app/lib/tool')
 const app = new Koa()
 const webpath = config.app.path.root + '/web/build'
-app.use(statics(webpath))
 app.use(compress())
+app.use(statics(webpath))
 app.use(bodyParser())
 app.use(favicon())
 // response
